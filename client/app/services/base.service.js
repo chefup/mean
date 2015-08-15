@@ -3,7 +3,12 @@
 angular.module('chefupApp').factory('BaseService', ['$resource', '$injector',
   function($resource, $injector) {
     var Resources = {
-      A: $resource('/api/A/:id', null, {
+      Dish: $resource('/api/dishes/:id', null, {
+        update: {
+          method: 'PATCH'
+        },
+      }),
+      Pickup: $resource('/api/pickups/:id', null, {
         update: {
           method: 'PATCH'
         },
