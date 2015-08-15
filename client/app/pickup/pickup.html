@@ -29,7 +29,7 @@
                 </ul>
                 <div class="buttons" ng-show="isLoggedIn">
                   <a href="#" ng-hide="isChef" ng-click="inquire()" class="btn btn-warning">Inquire</a>
-                  <a href="#" ng-hide="isChef" class="btn btn-info">Commit to Pay</a>
+                  <a href="#" ng-hide="isChef" ng-click="commitToBuy()" class="btn btn-info">Commit to Pay</a>
                 </div>
                 <div class="text-muted text-center" ng-hide="isLoggedIn">
                   <a href="/login">Login</a> to inquire about or purchase this dish.

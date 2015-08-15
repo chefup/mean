@@ -2,19 +2,6 @@
 
 var _ = require('lodash');
 var Comment = require('./comment.model');
-var Request = require('../request/request.model');
-var compose = require('composable-middleware');
-
-exports.canAccessRequest = function() {
-  return compose()
-    .use(function(req, res, next) {
-      Request.findById(req.params.requestId).populate('pickup').exec(function(err, request) {
-        if(err) { return handleError(res, err); }
-        if(request.pickup && (request.user.equals(req.user._id) || request.pickup.user.equals(req.user._id))) return next();
-        res.send(401);
-      });
-    });
-};
 
 // Get list of comments
 exports.index = function(req, res) {

@@ -11,7 +11,18 @@ angular.module('chefupApp')
           $scope.request.comments.$fetch();
         });
       }
-      $scope.user = User.$find($scope.pickup.user);
+      $scope.user = User.$find($scope.pickup.user).$then(function() {
+        $scope.checkout = StripeCheckout.configure({
+          key: $scope.user.stripe.stripe_publishable_key,
+          email: Auth.getCurrentUser().email,
+          image: $scope.pickup.dish.images[0],
+          allowRememberMe: true,
+          token: function(token) {
+            $scope.request.stripeCardToken = token.id;
+            $scope.request.$save();
+          }
+        });
+      });
       $scope.isChef = $scope.pickup.user == Auth.getCurrentUser().id;
     });
     $scope.showComments = false;
@@ -19,6 +30,16 @@ angular.module('chefupApp')
     $scope.inquire = function() {
       $scope.request = $scope.pickup.requests.$new();
       $scope.showComments = true;
+    };
+
+    $scope.commitToBuy = function() {
+      $scope.request = $scope.request || $scope.pickup.requests.$new();
+      $scope.checkout.open({
+        name: $scope.pickup.dish.name,
+        description: $scope.pickup.dish.description,
+        currency: "aud",
+        amount: $scope.pickup.price
+      });
     };
 
     $scope.submitComment = function() {
