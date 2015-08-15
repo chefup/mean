@@ -2,6 +2,8 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+@import '../assets/sass/bootswatch-paper/_variables';
+@import '../assets/sass/bootswatch-paper/_bootswatch';
 @import 'font-awesome/scss/font-awesome';
 
 /**
