@@ -4,8 +4,18 @@ angular.module('chefupApp')
   .controller('NavbarCtrl', function($rootScope, $scope, $location, Auth, $window, $http) {
     var $input = $(".location-lookup", $('#navbar-main'));
     $http.get('https://freegeoip.net/json/').then(function(response) {
+      var val = "";
+      if (response.data.city) {
+        val += response.data.city + ", ";
+      }
+      if (response.data.region_name) {
+        val += response.data.region_name + ", ";
+      }
+      if (response.data.country_name) {
+        val += response.data.country_name;
+      }
       $input.val(response.data.city + ', ' + response.data.regionName + ', ' + response.data.country);
-      $rootScope.geoIP = [response.data.lat, response.data.lon];
+      $rootScope.geoIP = [response.data.latitude, response.data.longitude];
     });
 
     $scope.location = null;
