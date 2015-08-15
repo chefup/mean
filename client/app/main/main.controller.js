@@ -4,15 +4,14 @@ angular.module('chefupApp')
   .controller('MainCtrl', function($scope, $http, $rootScope) {
     $scope.updateMainMap = function()  {
       var location = $rootScope.mainLocation;
-      debugger;
       if (location) {
         $scope.map.setCenter(location.geometry.location);
         $scope.map.setZoom(12);
       }
     };
-    $rootScope.$watch('location', function() {
+    $rootScope.updateLocation = function() {
       $scope.updateMainMap();
-    });
+    };
     var resizeFunc = function() {
       var listingsHeight = $(window).height() - 65 - 20;
       var mapHeight = $(window).height() - 65;

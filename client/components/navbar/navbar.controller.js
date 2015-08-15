@@ -9,9 +9,12 @@ angular.module('chefupApp')
     });
 
     $scope.location = null;
-    $scope.$watch('location', function(location) {
-      $rootScope.mainLocation = location;
-    });
+    $scope.updateLocation = function() {
+      $rootScope.mainLocation = $scope.location;
+      if ($rootScope.updateLocation) {
+        $rootScope.updateLocation();
+      }
+    };
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
