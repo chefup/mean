@@ -59,9 +59,19 @@ UserSchema
     return {
       'name': this.name,
       'role': this.role,
-      'avatar': this.avatar
+      'avatar': this.avatar,
+      'stripe': this.stripe_profile
     };
   });
+
+UserSchema
+  .virtual('stripe_profile')
+  .get(function() {
+    return this.stripe && {
+      stripe_publishable_key: this.stripe.stripe_publishable_key
+    };
+  });
+
 
 // Non-sensitive info we'll be putting in the token
 UserSchema

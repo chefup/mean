@@ -14,6 +14,7 @@
         },
         default: 'enquiry'
       },
+      charge: {},
       comments: [{
         type: 'ObjectId',
         ref: 'Comment',
