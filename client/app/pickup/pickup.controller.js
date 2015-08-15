@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('PickupCtrl', function ($scope, $stateParams, $location, Auth, Pickup, User) {
+  .controller('PickupCtrl', function($scope, $stateParams, $location, Auth, Pickup, User) {
     Auth.isLoggedInAsync(function(isLoggedIn) {
       $scope.isLoggedIn = isLoggedIn;
       $scope.pickup = Pickup.$find($stateParams.pickupId).$then(function() {
@@ -30,6 +30,15 @@ angular.module('chefupApp')
             }
           });
         });
+        $scope.$on('mapInitialized', function(event, map) {
+          var LatLng = new google.maps.LatLng($scope.pickup.lat, $scope.pickup.lon);
+          var marker = new google.maps.Marker({
+            position: LatLng,
+            map: map
+          });
+          map.setCenter(LatLng);
+          $scope.map.setZoom(12);
+        });
       });
     });
 
@@ -50,7 +59,9 @@ angular.module('chefupApp')
     };
 
     $scope.onStripeToken = function(token) {
-      $scope.pickup.requests.$create({ stripeCardToken: token.id }).$then(function(request) {
+      $scope.pickup.requests.$create({
+        stripeCardToken: token.id
+      }).$then(function(request) {
         $location.path('/pickups/' + $stateParams.pickupId + '/requests/' + request._id);
       });
     };

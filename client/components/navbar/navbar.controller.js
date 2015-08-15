@@ -3,7 +3,7 @@
 angular.module('chefupApp')
   .controller('NavbarCtrl', function($rootScope, $scope, $location, Auth, $window, $http) {
     var $input = $(".location-lookup", $('#navbar-main'));
-    $http.get('http://ip-api.com/json').then(function(response) {
+    $http.get('https://freegeoip.net/json/').then(function(response) {
       $input.val(response.data.city + ', ' + response.data.regionName + ', ' + response.data.country);
       $rootScope.geoIP = [response.data.lat, response.data.lon];
     });

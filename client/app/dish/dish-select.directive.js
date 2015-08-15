@@ -7,7 +7,6 @@ angular.module('chefupApp')
         restrict: 'E',
         templateUrl: 'app/dish/dish-select.html',
         scope: {
-          user: '=',
           selected: '='
         },
         link: function($scope, element, attrs) {

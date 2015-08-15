@@ -6,7 +6,7 @@ angular.module('chefupApp')
       .state('login', {
         url: '/login',
         controller: function($location) {
-          $location.path('/auth/facebook');
+          window.location.href = '/auth/facebook';
         }
       })
       .state('settings', {
