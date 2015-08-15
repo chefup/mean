@@ -6,6 +6,8 @@
     <div class="col-md-10">
       <form ng-submit="createListing.submit(listingForm)" name="listingForm" id="listingForm" sf-schema="createListing.schema" sf-form="createListing.form" sf-model="createListing.model">
       </form>
+      <dish-select></dish-select>
+      <button class="btn btn-primary" ng-click="createListing.submit(listingForm)">Create Pickup</button>
     </div>
     <div class="col-md-2">
       ads?

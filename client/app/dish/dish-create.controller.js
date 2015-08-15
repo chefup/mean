@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('CreateListingCtrl', ['$scope', '$stateParams', 'PickupSchema', 'Pickup', 'Auth',
-    function($scope, $stateParams, PickupSchema, Pickup, Auth) {
-      $scope.createListing = {
+  .controller('DishCreateCtrl', ['$scope', '$http', 'Auth', 'Dish',
+    function($scope, $http, Auth) {
+      $scope.createDish = {
         submit: function(form) {
           var that = this;
           $scope.$broadcast("schemaFormValidate");
           if (form.$valid) {
             $scope.submitted = true;
-            Pickup.$build(_.merge({
+            Dish.$build(_.merge({
               user: Auth.getCurrentUser()._id
             }, that.model)).$save().$then(function() {
               that.model = {};
@@ -23,42 +23,26 @@ angular.module('chefupApp')
         model: {},
         schema: {
           type: 'object',
-          title: 'Listing',
+          title: 'Dish',
           properties: {
-            location: {
+            name: {
               type: 'string',
-              title: 'Location',
               required: true
             },
             description: {
               type: 'string',
               title: 'Description'
-            },
-            privacy: {
-              title: 'Privacy',
-              enum: _.keys(PickupSchema.privacy.enum),
-              default: PickupSchema.privacy.default,
-              required: true
             }
           }
         },
         form: [{
-          key: 'location',
+          key: 'name',
           type: 'text'
         }, {
           key: 'description',
           type: 'textarea'
-        }, {
-          key: 'privacy',
-          type: 'radios',
-          titleMap: _.chain(PickupSchema.privacy.enum).keys().reduce(function(acc, key) {
-            acc.push({
-              value: key,
-              name: PickupSchema.privacy.enum[key]
-            });
-            return acc;
-          }, []).value(),
         }]
       };
+
     }
   ]);
