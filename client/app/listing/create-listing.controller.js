@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('CreateListingCtrl', ['$scope', '$stateParams', 'PickupSchema',
-    function($scope, $stateParams, PickupSchema) {
+  .controller('CreateListingCtrl', ['$scope', '$stateParams', 'PickupSchema', 'Pickup', 'Auth',
+    function($scope, $stateParams, PickupSchema, Pickup, Auth) {
       $scope.createListing = {
         submit: function(form) {
           var that = this;
-          Accounts.add(_.merge({
-            project: $scope.project._id
-          }, that.model), function() {
+          Pickup.$build(_.merge({
+            user: Auth.getCurrentUser()._id
+          }, that.model)).$save().$then(function() {
             that.model = {};
             form.$setPristine();
           }, function(failure) {});
