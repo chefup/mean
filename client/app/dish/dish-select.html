@@ -1,4 +1,4 @@
-  <h4>Select dish or <a href="#" ng-click="createDish()">create a new one</a></h4>
+  <h4>Select a dish or <a href="#" ng-click="createDish()">create one</a></h4>
   <div class="selectDishes">
   <div class="panel panel-default selectDish" ng-class="{'panel-success': selected == dish._id}" ng-repeat="dish in dishes" ng-click="$parent.selected = dish._id">
     <div class="panel-heading">

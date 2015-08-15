@@ -3,8 +3,8 @@
 <div class="container createPickup">
   <div class="row">
     <div class="panel panel-success">
-    <div class="panel-heading">
-      <h3>New Pickup</h3>
+    <div class="panel-heading main-heading">
+      New Pickup
     </div>
     <div class="panel-body">
       <div class="col-md-6">
@@ -19,9 +19,32 @@
       </div>
       <div class="col-md-4">
         <dish-select selected="createPickup.model.dish"></dish-select>
+        <h4>Availabilities</h4>
+        <div class="row" ng-repeat="day in days">
+          <div class="col-md-4">
+            <div class="form-control">
+              <input ng-model="createPickup.model.availabilities[day].able" type="checkbox" />
+              <label>{{day}}</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <select ng-model="createPickup.model.availabilities[day].start" class="form-control">
+              <option value="{{time}}" ng-repeat="time in times" ng-selected="time == '09'">
+                {{time}}:00
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <select ng-model="createPickup.model.availabilities[day].end" class="form-control">
+              <option value="{{time}}" ng-repeat="time in times" ng-selected="time == '18'">
+                {{time}}:00
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
       <div class="col-md-2">
-        ads?
+        <img src="assets/images/coles_ad.png" style="max-width: 100%;" />
       </div>
     </div>
 </div>

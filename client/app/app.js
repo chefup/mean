@@ -10,7 +10,9 @@ angular.module('chefupApp', [
   'restmod',
   'schemaForm',
   'google.places',
-  'ngMap'
+  'ngMap',
+  'cloudinary',
+  'angularFileUpload'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -48,11 +50,26 @@ angular.module('chefupApp', [
   };
 })
 
-.run(function($rootScope, $location, Auth) {
+.constant('cloudinary', {
+  cloud: 'dmlf2hfac',
+  key: '212537978292943',
+  secret: 'wd5MxqtUcqKTkoivER1CcTgfLjo',
+  preset: 'jazwlzur'
+})
+
+.run(function($rootScope, $location, Auth, $state) {
   // Redirect to login if route requires auth and you're not logged in
-  $rootScope.$on('$stateChangeStart', function(event, next) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+    var redirect = toState.redirectTo;
+    if (redirect) {
+      event.preventDefault();
+      if (angular.isFunction(redirect))
+        redirect.call(window, $state, toParams);
+      else
+        $state.go(redirect);
+    }
     Auth.isLoggedInAsync(function(loggedIn) {
-      if (next.authenticate && !loggedIn) {
+      if (toState.authenticate && !loggedIn) {
         $location.path('/login');
       }
     });

@@ -3,6 +3,18 @@
 angular.module('chefupApp')
   .controller('CreatePickupCtrl', ['$rootScope', '$scope', '$stateParams', 'PickupSchema', 'Pickup', 'Auth', '$state',
     function($rootScope, $scope, $stateParams, PickupSchema, Pickup, Auth, $state) {
+      $scope.days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      $scope.times = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
+        "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"
+      ];
+      var defaultAvailabilities = {};
+      _.each($scope.days, function(day) {
+        defaultAvailabilities[day] = {
+          able: true,
+          start: "09",
+          end: "18"
+        };
+      });
       $scope.$on('mapInitialized', function(event, map) {
         var changeMap = function() {
           var LatLng = new google.maps.LatLng($rootScope.geoIP[0], $rootScope.geoIP[1]);
@@ -46,7 +58,9 @@ angular.module('chefupApp')
           }
         },
         location: null,
-        model: {},
+        model: {
+          availabilities: _.clone(defaultAvailabilities)
+        },
         schema: {
           type: 'object',
           title: 'Pickup',
