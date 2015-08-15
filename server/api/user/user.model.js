@@ -2,10 +2,25 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var authTypes = ['facebook'],
-  appRoot = require('app-root-path');
+var authTypes = ['facebook'];
 
-var UserSchema = appRoot.require('/common/mongular-schema/user.js');
+var UserSchema = new Schema({
+  name: String,
+  email: {
+    type: String,
+    lowercase: true
+  },
+  role: {
+    type: String,
+    default: 'user'
+  },
+  provider: String,
+  facebook: {},
+  dishes: [{
+    type: Schema.ObjectId,
+    ref: "Dish"
+  }]
+});
 
 /**
  * Virtuals
