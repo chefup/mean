@@ -5,7 +5,9 @@ angular.module('chefupApp', [
   'ngResource',
   'ngSanitize',
   'ui.router',
-  'ui.bootstrap'
+  'ui.router.tabs',
+  'ui.bootstrap',
+  'restmod'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
