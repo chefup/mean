@@ -57,11 +57,19 @@ angular.module('chefupApp', [
   preset: 'jazwlzur'
 })
 
-.run(function($rootScope, $location, Auth) {
+.run(function($rootScope, $location, Auth, $state) {
   // Redirect to login if route requires auth and you're not logged in
-  $rootScope.$on('$stateChangeStart', function(event, next) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+    var redirect = toState.redirectTo;
+    if (redirect) {
+      event.preventDefault();
+      if (angular.isFunction(redirect))
+        redirect.call(window, $state, toParams);
+      else
+        $state.go(redirect);
+    }
     Auth.isLoggedInAsync(function(loggedIn) {
-      if (next.authenticate && !loggedIn) {
+      if (toState.authenticate && !loggedIn) {
         $location.path('/login');
       }
     });
