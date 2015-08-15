@@ -18,6 +18,10 @@
             <div class="tags">
                <span class="label label-default" ng-repeat="tag in pickup.tags">{{tag}}</span>
             </div>
+            <div class="pickup-buttons" ng-show="isLoggedIn">
+              <a href="#" ng-show="!isChef && !requestOpen" ng-click="inquire()" class="btn btn-block btn-warning">Inquire</a>
+              <a href="#" ng-show="!isChef && !request || !request.status" ng-click="commitToBuy()" class="btn btn-block btn-info">Commit to Pay</a>
+            </div>
           </div>
           <div class="col-md-12" style="margin-top: 15px;">
             <div class="row">
@@ -27,30 +31,10 @@
                 <ul>
                   <li ng-repeat="ingredient in pickup.dish.ingredients">{{ingredient}}
                 </ul>
-                <div class="buttons" ng-show="isLoggedIn">
-                  <a href="#" ng-hide="isChef" ng-click="inquire()" class="btn btn-warning">Inquire</a>
-                  <a href="#" ng-hide="isChef" ng-click="commitToBuy()" class="btn btn-info">Commit to Pay</a>
-                </div>
                 <div class="text-muted text-center" ng-hide="isLoggedIn">
                   <a href="/login">Login</a> to inquire about or purchase this dish.
                 </div>
-                <div ng-show="showComments">
-                  <h5>Comments</h3>
-                  <div class="col-md-12">
-                    <div ng-repeat="comment in request.comments" class="comment row">
-                      <div class="col-md-2">
-                        <user-avatar user="{ id: comment.user }"></user-avatar>
-                      </div>
-                      <div class="col-md-10">
-                        <p>{{comment.content}}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <textarea ng-model="comment" class="form-control" placeholder="Ask a question to the Chef"></textarea>
-                  <div class="text-right" style="margin-top: 5px">
-                    <a href="#" ng-click="submitComment()" class="btn btn-default">Send message</a>
-                  </div>
-                </div>
+                <ui-view></ui-view>
               </div>
               <div class="col-md-4">
                 <h5>Available Times</h5>

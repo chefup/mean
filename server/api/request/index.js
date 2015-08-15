@@ -8,12 +8,10 @@ var compose = require('composable-middleware');
 
 var router = express.Router();
 
-// router.get('/', controller.index);
-// router.get('/:id', controller.show);
+router.get('/:requestId', auth.isAuthenticated(), controller.canAccessRequest(), controller.show);
 router.get('/:requestId/comments', auth.isAuthenticated(), controller.canAccessRequest(), commentController.index);
 router.post('/:requestId/comments', auth.isAuthenticated(), controller.canAccessRequest(), commentController.create);
-router.put('/:requestId',  auth.isAuthenticated(), controller.canAccessRequest(), controller.update);
-// router.patch('/:id', controller.update);
-// router.delete('/:id', controller.destroy);
+router.put('/:requestId', auth.isAuthenticated(), controller.canAccessRequest(), controller.update);
+router.delete('/:requestId',  auth.isAuthenticated(), controller.canAccessRequest(), controller.destroy);
 
 module.exports = router;
