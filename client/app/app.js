@@ -8,7 +8,8 @@ angular.module('chefupApp', [
   'ui.router.tabs',
   'ui.bootstrap',
   'restmod',
-  'schemaForm'
+  'schemaForm',
+  'google.places'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

@@ -9,6 +9,14 @@
         required: true,
         type: Number
       },
+      lat: {
+        // required: true,
+        type: String
+      },
+      lon: {
+        // required: true,
+        type: String
+      },
       tags: [{
         type: String
       }],

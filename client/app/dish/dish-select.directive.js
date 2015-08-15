@@ -11,7 +11,7 @@ angular.module('chefupApp')
           selected: '='
         },
         link: function($scope, element, attrs) {
-          $scope.selected = {};
+          $scope.selected = null;
           $scope.dishes = Dish.$search({
             userId: Auth.getCurrentUser()._id
           });

@@ -13,6 +13,8 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/angular-google-places-autocomplete/src/autocomplete.css" />
+      <link rel="stylesheet" href="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -65,6 +67,8 @@
       <script src="bower_components/objectpath/lib/ObjectPath.js"></script>
       <script src="bower_components/angular-schema-form/dist/schema-form.js"></script>
       <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.js"></script>
+      <script src="bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+      <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
@@ -77,12 +81,12 @@
           <script src="app/admin/admin.js"></script>
           <script src="app/dish/dish-create.controller.js"></script>
           <script src="app/dish/dish-select.directive.js"></script>
-          <script src="app/listing/create-listing.controller.js"></script>
-          <script src="app/listing/create-listing.js"></script>
           <script src="app/listing/listing-item.directive.js"></script>
           <script src="app/listing/listing_item.controller.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/pickup/create-pickup.controller.js"></script>
+          <script src="app/pickup/create-pickup.js"></script>
           <script src="app/pickup/pickup.controller.js"></script>
           <script src="app/pickup/pickup.js"></script>
           <script src="app/services/base.service.js"></script>

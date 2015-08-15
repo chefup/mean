@@ -1,0 +1,21 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+    <h2>New Pickup</h2>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Location</label>
+        <input class="form-control" type="text" g-places-autocomplete force-selection="true" ng-model="createPickup.location" />
+      </div>
+      <form ng-submit="createPickup.submit(pickupForm)" name="pickupForm" id="pickupForm" sf-schema="createPickup.schema" sf-form="createPickup.form" sf-model="createPickup.model">
+      </form>
+      <button class="btn btn-primary" ng-click="createPickup.submit(pickupForm)">Create Pickup</button>
+    </div>
+    <div class="col-md-4">
+      <dish-select selected="createPickup.model.dish"></dish-select>
+    </div>
+    <div class="col-md-2">
+      ads?
+    </div>
+</div>
