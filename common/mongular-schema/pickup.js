@@ -1,9 +1,17 @@
 (function(isNode, isAngular) {
   var PickupSchema = function() {
     var sharedSchema = {
-      name: {
+      dish: {
+        type: 'ObjectId',
+        ref: 'Dish'
+      },
+      privacy: {
         type: String,
-        required: true
+        enum: {
+          'private': 'Private',
+          'public': 'Public'
+        },
+        default: 'public'
       }
     };
     if (isAngular) {

@@ -19,7 +19,10 @@ var UserSchema = new Schema({
   dishes: [{
     type: Schema.ObjectId,
     ref: "Dish"
-  }]
+  }],
+  caption: {
+    type: String
+  }
 });
 
 /**

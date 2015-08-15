@@ -18,9 +18,7 @@ angular.module('chefupApp').factory('BaseService', ['$resource', '$injector',
     return function(options) {
       var Schema = $injector.get(options.schema);
       return {
-        collection: Resources[options.resource].query({
-          additionalParam: true
-        }),
+        collection: Resources[options.resource].query(),
         add: function(itemProps, successCb, failureCb) {
           var that = this;
           Resources[options.resource].save(itemProps, function(item) {
@@ -28,12 +26,17 @@ angular.module('chefupApp').factory('BaseService', ['$resource', '$injector',
             if (Schema) {
               _.each(Schema, function(field, parentPath) {
                 if (field.childPath) {
-                  var parentService = $injector.get(field.ref + 'Service');
-                  var parentId = (_.isPlainObject(item[parentPath])) ? item[parentPath]._id : item[parentPath];
-                  var parent = _.find(parentService.collection, function(parent) {
-                    return parent._id === parentId;
-                  });
-                  parent[field.childPath].push(item);
+                  if (field.ref === 'User')  {
+                    // To-do: add to current user's dishes
+
+                  } else {
+                    var parentService = $injector.get(field.ref + 'Service');
+                    var parentId = (_.isPlainObject(item[parentPath])) ? item[parentPath]._id : item[parentPath];
+                    var parent = _.find(parentService.collection, function(parent) {
+                      return parent._id === parentId;
+                    });
+                    parent[field.childPath].push(item);
+                  }
                 }
               });
             }
