@@ -4,6 +4,10 @@
       name: {
         type: String,
         required: true
+      },
+      price: {
+        type: Number,
+        required: true
       }
     };
     if (isAngular) {
@@ -12,11 +16,26 @@
       var mongoose = require('mongoose'),
         mongular = require('mongular-schema');
 
-      var schema = mongular.convert(sharedSchema);
+      var schema = mongular.merge(sharedSchema, {
+        price: {
+          set: function(num) {
+            return num * 100;
+          }
+        }
+      }, {
+        toObject: {
+          getters: true,
+          virtuals: true
+        },
+        toJSON: {
+          getters: true,
+          virtuals: true
+        },
+      });
 
-      var timestamps = require('mongoose-timestamp');
-      schema.plugin(timestamps);
-
+      // var timestamps = require('mongoose-timestamp');
+      // schema.plugin(timestamps);
+      console.log(schema);
       return schema;
     }
   };

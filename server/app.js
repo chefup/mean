@@ -20,8 +20,8 @@ if (config.seedDB) {
 }
 
 // Set global mongoose plugins
-var deepPopulate = require('mongoose-deep-populate');
-mongoose.plugin(deepPopulate);
+// var deepPopulate = require('mongoose-deep-populate');
+// mongoose.plugin(deepPopulate);
 
 // Setup server
 var app = express();
