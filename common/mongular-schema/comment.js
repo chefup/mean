@@ -4,9 +4,9 @@
       content: {
         type: String
       },
-      pickup: {
+      request: {
         type: 'ObjectId',
-        ref: 'Pickup'
+        ref: 'Request'
       },
       user: {
         type: 'ObjectId',

@@ -36,7 +36,7 @@
                 </div>
                 <div ng-show="showComments">
                   <h5>Comments</h3>
-                  <textarea class="form-control" placeholder="Ask a question to the Chef"></textarea>
+                  <textarea ng-model="comment" class="form-control" placeholder="Ask a question to the Chef"></textarea>
                   <div class="text-right" style="margin-top: 5px">
                     <a href="#" ng-click="submitComment()" class="btn btn-default">Send message</a>
                   </div>

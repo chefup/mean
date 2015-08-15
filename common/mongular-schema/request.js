@@ -41,11 +41,11 @@
           virtuals: true
         }
       });
-      //
-      // var relationship = require("mongoose-relationship");
-      // schema.plugin(relationship, {
-      //   relationshipPathName: 'user'
-      // });
+
+      var relationship = require("mongoose-relationship");
+      schema.plugin(relationship, {
+        relationshipPathName: 'user'
+      });
 
       var timestamps = require('mongoose-timestamp');
       schema.plugin(timestamps);

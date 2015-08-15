@@ -21,7 +21,9 @@ angular.module('chefupApp')
     };
 
     $scope.submitComment = function() {
+      $scope.request.comments.$new({ content: $scope.comment });
       console.log($scope.request);
       $scope.request.$save();
+      $scope.request.comments.$save();
     };
   });
