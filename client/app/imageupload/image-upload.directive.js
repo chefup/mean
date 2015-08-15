@@ -8,8 +8,12 @@ angular.module('chefupApp')
         templateUrl: 'app/imageupload/image-upload.html',
         scope: {
           images: '=',
+          type: '@'
         },
         link: function($scope, element, attrs) {
+          if (!$scope.type) {
+            $scope.type = 'photos';
+          }
           $scope.dragOverClass = function($event) {
             var items = $event.dataTransfer.items;
             var hasFile = false;

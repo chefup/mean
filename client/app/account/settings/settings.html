@@ -7,10 +7,19 @@
         Become a Chef
       </div>
     <div class="panel-body">
-      <div class="col-sm-12">
+      <div class="col-sm-5">
+        <h5>Food Hygiene Certificate</h5>
+        <p>To maintain the best of standards, we require all of our chef's to obtain the <a href="http://www.clubtraining.com.au/online-courses/">Food Hygiene Certificate</a>.</p>
+        <image-upload type="files" images="images"></image-upload>
+      </div>
+      <div class="col-sm-7">
+        <h5>Your Caption</h5>
+        <form ng-submit="setCaption.submit(captionForm)" name="captionForm" id="captionForm" sf-schema="setCaption.schema" sf-form="setCaption.form" sf-model="setCaption.model">
+        </form>
         <form class="form-horizontal">
           <fieldset>
-            <legend>Stripe</legend>
+            <h5>Stripe</h5>
+            <div>To accept payments through our service, you must register for an account with Stripe.</div>
             <div class="form-group" ng-hide="hasStripe">
               <div class="col-lg-12">
                 <a href="#" ng-click="linkStripe();" class="btn btn-primary">Link to Stripe account</a>
