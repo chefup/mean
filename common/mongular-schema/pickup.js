@@ -9,6 +9,9 @@
         required: true,
         type: Number
       },
+      tags: [{
+        type: String
+      }],
       privacy: {
         type: String,
         enum: {

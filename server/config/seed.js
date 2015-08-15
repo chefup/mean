@@ -54,7 +54,8 @@ User.find({}).remove(function() {
       }, function(err, dish) {
         Pickup.create({
           user: testUser,
-          dish: dish
+          dish: dish,
+          tags: ['fresh', 'breakfast', 'gluten free']
         }, function() {
           console.log('finished populating pickups');
         });

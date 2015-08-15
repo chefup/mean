@@ -1,0 +1,52 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container pickup">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="col-md-4 panel-media">
+          <img class="col-md-12" ng-src="{{pickup.dish.images[0]}}" />
+          <div class="overlay">
+            <span class="dish-name">{{pickup.dish.name}}</span>
+          </div>
+        </div>
+        <div class="panel-body row clearfix">
+          <div class="col-md-8 col-md-offset-4" style="position: absolute; top: 15px;">
+            <div class="tags">
+               <span class="label label-default" ng-repeat="tag in pickup.tags">{{tag}}</span>
+            </div>
+          </div>
+          <div class="col-md-12" style="margin-top: 15px;">
+            <p>{{pickup.dish.description}}</p>
+            <h5 ng-show="pickup.dish.ingredients.length">Ingredients</h5>
+            <ul>
+              <li ng-repeat="ingredient in pickup.dish.ingredients">{{ingredient}}
+            </ul>
+            <div class="buttons" ng-show="isLoggedIn">
+              <a href="#" ng-click="inquire()" class="btn btn-warning">Inquire</a>
+              <a href="#" class="btn btn-info">Commit to Pay</a>
+              <a href="#" class="btn btn-success">Accept Request</a>
+              <a href="#" class="btn btn-danger">Decline Request</a>
+              <a href="#" class="btn btn-danger">Mark as Delivered</a>
+            </div>
+            <div class="text-muted text-center" ng-hide="isLoggedIn">
+              <a href="/auth/facebook">Login with Facebook</a> to inquire or purchase this dish.
+            </div>
+            <div ng-show="showComments">
+              <h5>Comments</h3>
+              <textarea class="form-control" placeholder="Ask a question to the Chef"></textarea>
+              <div class="text-right" style="margin-top: 5px">
+                <a href="#" class="btn btn-default">Send message</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ratings">
+          <a href="#" class="btn btn-success"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></a><br />
+          <a href="#" class="btn btn-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></a><br />
+          <a href="#" class="btn btn-danger">$ {{pickup.price}}</i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

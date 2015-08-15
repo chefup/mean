@@ -5,7 +5,11 @@ var Pickup = require('./pickup.model');
 
 // Get list of pickups
 exports.index = function(req, res) {
-  Pickup.find().populate('dish').exec(function (err, pickups) {
+  var query = {};
+  if (req.query.userId) {
+    query.user = req.query.userId;
+  }
+  Pickup.find(query).populate('dish').exec(function (err, pickups) {
     if(err) { return handleError(res, err); }
 
     return res.json(200, pickups);

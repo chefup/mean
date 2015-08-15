@@ -43,7 +43,7 @@ UserSchema
    var avatar = null;
    switch(this.provider) {
      case 'facebook':
-     return 'https://graph.facebook.com/v2.4/' + this.facebook.id + '/picture?width=170';
+     return 'https://graph.facebook.com/v2.4/' + this.facebook.id + '/picture?type=square&width=170&height=170';
    }
  });
 
