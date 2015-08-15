@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
+  <h4 class="modal-title">Create Dish</h4>
+</div>
+<div class="modal-body">
+  <form ng-submit="createDish.submit(dishForm)" name="dishForm" id="dishForm" sf-schema="createDish.schema" sf-form="createDish.form" sf-model="createDish.model">
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success" ng-click="createDish.submit(dishForm)">Create</button>
+  <button class="btn btn-warning" ng-click="createDish.submit(dishForm)">Cancel</button>
+</div>
