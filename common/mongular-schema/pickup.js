@@ -8,8 +8,8 @@
       privacy: {
         type: String,
         enum: {
-          'private': 'Private',
-          'public': 'Public'
+          'public': 'Public',
+          'private': 'Private'
         },
         default: 'public'
       },
