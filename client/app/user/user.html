@@ -5,12 +5,15 @@
     <div class="col-md-2">
       <user-avatar user="user"></user-avatar>
       <span class="user-name">{{user.name}}</span>
+      <div class="rating btn btn-warning">
+        <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
+      </div>
     </div>
     <div class="col-md-8">
       <tabs data="tabData" type="tabs" />
       <ui-view></ui-view>
     </div>
     <div class="col-md-2">
-      ads?
+      <h5>Similar Dishes</h5>
     </div>
 </div>
