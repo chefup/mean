@@ -12,6 +12,12 @@
           'public': 'Public'
         },
         default: 'public'
+      },
+      user: {
+        type: 'ObjectId',
+        ref: 'User',
+        required: true,
+        childPath: 'pickups'
       }
     };
     if (isAngular) {
@@ -28,6 +34,11 @@
           getters: true,
           virtuals: true
         },
+      });
+
+      var relationship = require("mongoose-relationship");
+      schema.plugin(relationship, {
+        relationshipPathName: 'user'
       });
 
       var timestamps = require('mongoose-timestamp');
