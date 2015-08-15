@@ -7,9 +7,9 @@ angular.module('chefupApp')
       templateUrl: 'app/main/main-listing.html',
       scope: {},
       link: function($scope, element, attrs) {
-        $rootScope.updateSearch = function() {
+        $rootScope.$on('updateSearch', function() {
           $scope.updateSearch();
-        };
+        });
         $rootScope.$on('updateLocation', function() {
           $scope.updateSearch();
         });
