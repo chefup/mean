@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chefupApp')
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
@@ -12,7 +12,6 @@ angular.module('chefupApp')
       .state('settings', {
         url: '/settings',
         templateUrl: 'app/account/settings/settings.html',
-        controller: 'SettingsCtrl',
-        authenticate: true
+        controller: 'SettingsCtrl'
       });
   });

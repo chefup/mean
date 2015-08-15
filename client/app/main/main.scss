@@ -28,3 +28,14 @@
     margin-top: 70px;
     border-top: 1px solid #E5E5E5;
 }
+.main-listings {
+    padding-right: 34px;
+    overflow: auto;
+}
+.map-wrap {
+    .map {
+        position: absolute;
+        right: 0px;
+        top: 65px;
+    }
+}
