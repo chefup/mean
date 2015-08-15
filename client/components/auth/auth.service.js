@@ -40,6 +40,7 @@ angular.module('chefupApp')
        * Waits for currentUser to resolve before checking if user is logged in
        */
       isLoggedInAsync: function(cb) {
+        if (!currentUser._id) return cb(false);
         currentUser.$then(function() {
           cb(true);
         }, function() {

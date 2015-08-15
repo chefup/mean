@@ -25,6 +25,10 @@ var UserSchema = new Schema({
     type: Schema.ObjectId,
     ref: "Pickup"
   }],
+  requests: [{
+    type: Schema.ObjectId,
+    ref: "Request"
+  }],
   comments: [{
     type: Schema.ObjectId,
     ref: "Comment"

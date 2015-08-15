@@ -1,18 +1,28 @@
 (function(isNode, isAngular) {
-  var CommentSchema = function() {
+  var RequestSchema = function() {
     var sharedSchema = {
-      content: {
-        type: String
+      status: {
+        type: String,
+        enum: {
+          'enquiry': 'enquiry',
+          'payment_committed': 'payment_committed',
+          'accepted': 'accepted',
+          'delivered': 'delivered',
+          'cancelled': 'cancelled',
+          'refunded': 'refunded',
+          'rejected': 'rejected'
+        },
+        default: 'enquiry'
       },
-      request: {
+      pickup: {
         type: 'ObjectId',
-        ref: 'Request'
+        ref: 'Pickup'
       },
       user: {
         type: 'ObjectId',
         ref: 'User',
         required: true,
-        childPath: 'comments'
+        childPath: 'requests'
       }
     };
     if (isAngular) {
@@ -20,7 +30,8 @@
     } else if (isNode) {
       var mongular = require('mongular-schema');
 
-      var schema = mongular.merge(sharedSchema, {}, {
+      var schema = mongular.merge(sharedSchema, {
+      }, {
         toObject: {
           getters: true,
           virtuals: true
@@ -28,7 +39,7 @@
         toJSON: {
           getters: true,
           virtuals: true
-        },
+        }
       });
 
       var relationship = require("mongoose-relationship");
@@ -43,10 +54,10 @@
   };
   if (isAngular) {
     // AngularJS module definition
-    angular.module('chefupApp').factory('CommentSchema', [CommentSchema]);
+    angular.module('chefupApp').factory('RequestSchema', [RequestSchema]);
   } else if (isNode) {
     // NodeJS module definition
-    module.exports = CommentSchema();
+    module.exports = RequestSchema();
   }
 })(typeof module !== 'undefined' && module.exports,
   typeof angular !== 'undefined');
