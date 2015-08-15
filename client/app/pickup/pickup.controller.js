@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('PickupCtrl', function ($scope, $stateParams, Pickup, User) {
+  .controller('PickupCtrl', function ($scope, $stateParams, Auth, Pickup, User) {
+    $scope.isLoggedIn = Auth.isLoggedIn();
     $scope.pickup = Pickup.$find($stateParams.pickupId).$then(function() {
       $scope.user = User.$find($scope.pickup.user);
     });

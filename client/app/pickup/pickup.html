@@ -22,11 +22,16 @@
             <ul>
               <li ng-repeat="ingredient in pickup.dish.ingredients">{{ingredient}}
             </ul>
-            <a href="#" ng-click="inquire()" class="btn btn-warning">Inquire</a>
-            <a href="#" class="btn btn-info">Commit to Pay</a>
-            <a href="#" class="btn btn-success">Accept Request</a>
-            <a href="#" class="btn btn-danger">Decline Request</a>
-            <a href="#" class="btn btn-danger">Mark as Delivered</a>
+            <div class="buttons" ng-show="isLoggedIn">
+              <a href="#" ng-click="inquire()" class="btn btn-warning">Inquire</a>
+              <a href="#" class="btn btn-info">Commit to Pay</a>
+              <a href="#" class="btn btn-success">Accept Request</a>
+              <a href="#" class="btn btn-danger">Decline Request</a>
+              <a href="#" class="btn btn-danger">Mark as Delivered</a>
+            </div>
+            <div class="text-muted text-center" ng-hide="isLoggedIn">
+              <a href="/auth/facebook">Login with Facebook</a> to inquire or purchase this dish.
+            </div>
             <div ng-show="showComments">
               <h5>Comments</h3>
               <textarea class="form-control" placeholder="Ask a question to the Chef"></textarea>
