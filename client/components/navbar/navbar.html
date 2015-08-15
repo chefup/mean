@@ -27,12 +27,6 @@
           </div>
         </div>
       </form>
-      <ul class="nav navbar-nav">
-        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-            <a ng-href="{{item.link}}">{{item.title}}</a>
-        </li>
-        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
-      </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}">
@@ -41,7 +35,7 @@
           </btn>
         </li>
         <li ng-show="isLoggedIn()"><p class="navbar-text">Hello <a ng-href="/users/{{getCurrentUser()._id}}">{{ getCurrentUser().name }}</a></p> </li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a class="becomeChef" href="/settings"><i class="fa fa-cutlery"></i> Become a Chef</a></li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
       </ul>
     </div>

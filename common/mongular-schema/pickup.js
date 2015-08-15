@@ -5,6 +5,7 @@
         type: 'ObjectId',
         ref: 'Dish'
       },
+      availabilities: {},
       price: {
         required: true,
         type: Number

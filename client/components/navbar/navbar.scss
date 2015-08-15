@@ -27,3 +27,10 @@ $btnFacebookBackgroundHighlight:    #133783;
 .btn-facebook {
   @include button-variant($btnText, $btnFacebookBackgroundHighlight, $btnFacebookBackgroundHighlight);
 }
+
+.becomeChef {
+  .fa {
+    margin-right: 10px;
+  }
+  font-size: 16px;
+}
