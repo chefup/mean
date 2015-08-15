@@ -54,6 +54,16 @@ exports.index = function(req, res) {
   });
 };
 
+// Get a single request
+exports.show = function(req, res) {
+  Request.findById(req.params.requestId, function (err, request) {
+    if(err) { return handleError(res, err); }
+    if(!request) { return res.send(404); }
+    return res.json(200, request);
+  });
+};
+
+
 // Creates a new pickup in the DB.
 exports.create = function(req, res) {
   var stripeCardToken = req.body.stripeCardToken;

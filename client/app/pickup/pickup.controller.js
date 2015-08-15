@@ -1,16 +1,19 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('PickupCtrl', function ($scope, $stateParams, Auth, Pickup, User) {
+  .controller('PickupCtrl', function ($scope, $stateParams, $location, Auth, Pickup, User) {
     Auth.isLoggedInAsync(function(isLoggedIn) {
       $scope.isLoggedIn = isLoggedIn;
-
       $scope.pickup = Pickup.$find($stateParams.pickupId).$then(function() {
+        $scope.isChef = $scope.pickup.user == Auth.getCurrentUser()._id;
         if ($scope.isLoggedIn) {
           $scope.pickup.requests.$fetch().$then(function() {
-            $scope.showComments = $scope.showComments || !!$scope.pickup.requests.length;
-            $scope.request = $scope.pickup.requests[0];
-            $scope.request.comments.$fetch();
+            if (!$scope.isChef) {
+              var request = $scope.pickup.requests[0];
+              request && $location.path('/pickups/' + $stateParams.pickupId + '/requests/' + request._id);
+            } else {
+              $location.path('/pickups/' + $stateParams.pickupId + '/requests');
+            }
           });
         }
         $scope.user = User.$find($scope.pickup.user).$then(function() {
@@ -25,23 +28,14 @@ angular.module('chefupApp')
             }
           });
         });
-        $scope.isChef = $scope.pickup.user == Auth.getCurrentUser().id;
       });
     });
 
-    $scope.showComments = false;
+    $scope.requestOpen = false;
 
     $scope.inquire = function() {
-      $scope.request = $scope.pickup.requests.$new();
-      $scope.showComments = true;
-    };
-
-    $scope.cancel = function() {
-      $scope.request.$destroy().$then(function() {
-        $scope.$apply(function() {
-          $scope.request = null;
-        });
-      });
+      $scope.requestOpen = true;
+      $location.path('/pickups/' + $stateParams.pickupId + '/requests/new');
     };
 
     $scope.commitToBuy = function() {
@@ -54,17 +48,4 @@ angular.module('chefupApp')
       });
     };
 
-    $scope.submitComment = function() {
-      console.log($scope.comment);
-      var comment = $scope.comment;
-      $scope.comment = '';
-      var cb = function() {
-        $scope.request.comments.$create({ content: comment });
-      };
-      if ($scope.request.id) {
-        cb();
-      } else {
-        $scope.request.$save().$then(cb);
-      }
-    };
   });
