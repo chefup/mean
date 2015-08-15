@@ -2,58 +2,36 @@
 
 var _ = require('lodash');
 var Comment = require('./comment.model');
+var Request = require('../request/request.model');
+var compose = require('composable-middleware');
+
+exports.canAccessRequest = function() {
+  return compose()
+    .use(function(req, res, next) {
+      Request.findById(req.params.requestId).populate('pickup').exec(function(err, request) {
+        if(err) { return handleError(res, err); }
+        if(request.pickup && (request.user.equals(req.user._id) || request.pickup.user.equals(req.user._id))) return next();
+        res.send(401);
+      });
+    });
+};
 
 // Get list of comments
 exports.index = function(req, res) {
-  Comment.find(function (err, comments) {
+  Comment.find({ request: req.params.requestId }).exec(function (err, comments) {
     if(err) { return handleError(res, err); }
     return res.json(200, comments);
   });
 };
 
-// Get a single comment
-exports.show = function(req, res) {
-  Comment.findById(req.params.id, function (err, comment) {
-    if(err) { return handleError(res, err); }
-    if(!comment) { return res.send(404); }
-    return res.json(comment);
-  });
-};
-
 // Creates a new comment in the DB.
 exports.create = function(req, res) {
-  Comment.create(req.body, function(err, comment) {
+  var data = _.extend(req.body, { user: req.user._id, request: req.params.requestId });
+  Comment.create(data, function(err, comment) {
     if(err) { return handleError(res, err); }
     return res.json(201, comment);
   });
 };
-
-// Updates an existing comment in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Comment.findById(req.params.id, function (err, comment) {
-    if (err) { return handleError(res, err); }
-    if(!comment) { return res.send(404); }
-    var updated = _.merge(comment, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, comment);
-    });
-  });
-};
-
-// Deletes a comment from the DB.
-exports.destroy = function(req, res) {
-  Comment.findById(req.params.id, function (err, comment) {
-    if(err) { return handleError(res, err); }
-    if(!comment) { return res.send(404); }
-    comment.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
-  });
-};
-
 function handleError(res, err) {
   return res.send(500, err);
 }

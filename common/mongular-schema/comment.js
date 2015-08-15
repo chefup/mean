@@ -6,7 +6,9 @@
       },
       request: {
         type: 'ObjectId',
-        ref: 'Request'
+        ref: 'Request',
+        required: true,
+        childPath: 'comments'
       },
       user: {
         type: 'ObjectId',

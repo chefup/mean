@@ -7,6 +7,8 @@ angular.module('chefupApp')
       if ($scope.isLoggedIn) {
         $scope.pickup.requests.$fetch().$then(function() {
           $scope.showComments = $scope.showComments || !!$scope.pickup.requests.length;
+          $scope.request = $scope.pickup.requests[0];
+          $scope.request.comments.$fetch();
         });
       }
       $scope.user = User.$find($scope.pickup.user);
@@ -16,14 +18,19 @@ angular.module('chefupApp')
 
     $scope.inquire = function() {
       $scope.request = $scope.pickup.requests.$new();
-      console.log($scope.request);
       $scope.showComments = true;
     };
 
     $scope.submitComment = function() {
-      $scope.request.comments.$new({ content: $scope.comment });
-      console.log($scope.request);
-      $scope.request.$save();
-      $scope.request.comments.$save();
+      var comment = $scope.comment;
+      $scope.comment = '';
+      var cb = function() {
+        $scope.request.comments.$create({ content: comment });
+      };
+      if ($scope.request.id) {
+        cb();
+      } else {
+        $scope.request.$save().$then(cb);
+      }
     };
   });

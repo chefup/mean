@@ -14,6 +14,11 @@
         },
         default: 'enquiry'
       },
+      comments: [{
+        type: 'ObjectId',
+        ref: 'Comment',
+        childPath: 'request'
+      }],
       pickup: {
         type: 'ObjectId',
         ref: 'Pickup'
