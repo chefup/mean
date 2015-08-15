@@ -7,7 +7,7 @@ angular.module("chefupApp").directive("locationLookup", ['$http',
         location: '='
       },
       link: function($scope, element, attrs) {
-        var $input = $("#locationLookup");
+        var $input = $(".location-lookup", $(element));
         $http.get('http://ip-api.com/json').then(function(response) {
           $input.val(response.data.city + ', ' + response.data.regionName + ', ' + response.data.country)
         });
