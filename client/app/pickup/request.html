@@ -12,8 +12,10 @@
   </div>
   <textarea autofocus ng-model="comment" class="form-control" placeholder="Ask a question to the Chef"></textarea>
   <div class="text-right" style="margin-top: 5px">
-    <a href="#" ng-show="!isChef && (!request || request.status == 'enquiry')" ng-click="commitToBuy()" class="btn btn-info">Commit to Pay</a>
-    <a href="#" ng-show="!isChef && request.status == 'payment_committed'" ng-click="cancel()" class="btn btn-danger">Cancel</a>
+    <a href="#" ng-show="!$parent.isChef && (!request || request.status == 'enquiry')" ng-click="commitToBuy()" class="btn btn-success">Commit to Pay</a>
+    <a href="#" ng-show="$parent.isChef && request.status == 'payment_committed'" ng-click="commitToCook()" class="btn btn-success">Commit to Cook</a>
+    <a href="#" ng-show="!$parent.isChef && request.status == 'payment_committed'" ng-click="cancel()" class="btn btn-danger">Cancel</a>
+
     <a href="#" ng-click="submitComment()" class="btn btn-default">Send message</a>
   </div>
 </div>
