@@ -41,16 +41,7 @@
     } else if (isNode) {
       var mongular = require('mongular-schema');
 
-      var schema = mongular.merge(sharedSchema, {
-        price: {
-          set: function(num) {
-            return num * 100;
-          },
-          get: function(num) {
-            return num / 100;
-          }
-        }
-      }, {
+      var schema = mongular.merge(sharedSchema, {}, {
         toObject: {
           getters: true,
           virtuals: true

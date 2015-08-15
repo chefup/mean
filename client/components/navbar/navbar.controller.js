@@ -19,6 +19,10 @@ angular.module('chefupApp')
       $window.location.href = '/auth/' + provider;
     };
 
+    $scope.isChef = function() {
+      return Auth.getCurrentUser().role === "chef" || Auth.getCurrentUser.role === "admin";
+    };
+
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');
