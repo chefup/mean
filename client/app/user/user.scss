@@ -7,3 +7,20 @@
 .user-name {
   font-weight: bold;
 }
+
+user-info {
+  text-align: center;
+}
+
+user-info .caption {
+  font-weight: 100;
+}
+
+.rating {
+  text-align: center;
+  
+  i {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}

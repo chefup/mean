@@ -1,5 +1,6 @@
 <user-avatar user="user"></user-avatar>
-<span class="user-name">{{user.name}}</span>
+<div class="user-name">{{user.name}}</div>
+<div class="caption">{{user.caption}}</div>
 <div class="rating btn btn-warning btn-block">
-  <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
+  <rating ng-model="user.rating" readonly="true" state-on="'fa fa-star'" state-off="'fa fa-star-o'"></rating>
 </div>

@@ -14,6 +14,9 @@
       ingredients: [{
         type: String
       }],
+      ratings: [{
+        type: Number
+      }],
       user: {
         type: 'ObjectId',
         ref: 'User',
@@ -36,6 +39,12 @@
           virtuals: true
         },
       });
+
+      schema
+        .virtual('rating')
+        .get(function() {
+          return 5;
+        });
 
       var relationship = require("mongoose-relationship");
       schema.plugin(relationship, {
