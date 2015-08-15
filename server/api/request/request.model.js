@@ -10,6 +10,7 @@ RequestSchema
     console.log(value);
     var self = this;
     this.constructor.findOne({
+      _id: { $ne: this._id },
       pickup: this.pickup,
       user: this.user
     }, function(err, request) {

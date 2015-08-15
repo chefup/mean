@@ -11,11 +11,15 @@
     </div>
   </div>
   <textarea autofocus ng-model="comment" class="form-control" placeholder="Ask a question to the Chef"></textarea>
+  <div class="pull-left status text-muted">
+    <span ng-show="request.status == 'payment_committed'">Current Status: Waiting for approval</span>
+    <span ng-show="request.status == 'accepted'">Current Status: Will be ready for pick-up on XX/XX/XX</span>
+  </div>
   <div class="text-right" style="margin-top: 5px">
-    <a href="#" ng-show="!$parent.isChef && (!request || request.status == 'enquiry')" ng-click="commitToBuy()" class="btn btn-success">Commit to Pay</a>
+    <a href="#" ng-show="!$parent.isChef && (!request || request.status == 'enquiry')" ng-click="$parent.commitToBuy()" class="btn btn-success">Commit to Pay</a>
     <a href="#" ng-show="$parent.isChef && request.status == 'payment_committed'" ng-click="commitToCook()" class="btn btn-success">Commit to Cook</a>
+    <a href="#" ng-show="$parent.isChef && request.status == 'accepted'" ng-click="delivered()" class="btn btn-info">Delivered</a>
     <a href="#" ng-show="!$parent.isChef && request.status == 'payment_committed'" ng-click="cancel()" class="btn btn-danger">Cancel</a>
-
     <a href="#" ng-click="submitComment()" class="btn btn-default">Send message</a>
   </div>
 </div>
