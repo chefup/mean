@@ -32,13 +32,13 @@
                   <a href="#" ng-hide="isChef" class="btn btn-info">Commit to Pay</a>
                 </div>
                 <div class="text-muted text-center" ng-hide="isLoggedIn">
-                  <a href="/auth/facebook">Login with Facebook</a> to inquire or purchase this dish.
+                  <a href="/login">Login</a> to inquire about or purchase this dish.
                 </div>
                 <div ng-show="showComments">
                   <h5>Comments</h3>
                   <textarea class="form-control" placeholder="Ask a question to the Chef"></textarea>
                   <div class="text-right" style="margin-top: 5px">
-                    <a href="#" class="btn btn-default">Send message</a>
+                    <a href="#" ng-click="submitComment()" class="btn btn-default">Send message</a>
                   </div>
                 </div>
               </div>

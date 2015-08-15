@@ -2,13 +2,15 @@
   var RequestSchema = function() {
     var sharedSchema = {
       status: {
-        type: Number,
+        type: String,
         enum: {
-          'enquiry': 0,
-          'payment_committed': 1,
-          'accepted': 2,
-          'delivered': 5,
-          'rejected': 9
+          'enquiry': 'enquiry',
+          'payment_committed': 'payment_committed',
+          'accepted': 'accepted',
+          'delivered': 'delivered',
+          'cancelled': 'cancelled',
+          'refunded': 'refunded',
+          'rejected': 'rejected'
         },
         default: 'enquiry'
       },
@@ -39,11 +41,11 @@
           virtuals: true
         }
       });
-
-      var relationship = require("mongoose-relationship");
-      schema.plugin(relationship, {
-        relationshipPathName: 'user'
-      });
+      //
+      // var relationship = require("mongoose-relationship");
+      // schema.plugin(relationship, {
+      //   relationshipPathName: 'user'
+      // });
 
       var timestamps = require('mongoose-timestamp');
       schema.plugin(timestamps);
