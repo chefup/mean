@@ -3,6 +3,8 @@
 angular.module('chefupApp')
   .factory('Dish', function(restmod) {
     return restmod.model('/api/dishes').mix({
-      pickup: { belongsTo: 'Pickup' }
+      pickup: {
+        belongsTo: 'Pickup'
+      }
     });
   });

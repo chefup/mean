@@ -54,7 +54,9 @@
               </div>
               <div class="col-md-4">
                 <h5>Available Times</h5>
-                <p>something here</p>
+                <div ng-repeat="(day, availability) in pickup.availabilities" ng-if="availability.able">
+                  <strong style="width: 40px; display: inline-block;">{{day}}:</strong> <span style="color:green;">{{availability.start}}:00 - {{availability.end}}:00</span>
+                </div>
                 <h5>Location</h5>
                 <p>something here</p>
               </div>

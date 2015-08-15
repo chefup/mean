@@ -45,6 +45,9 @@
         price: {
           set: function(num) {
             return num * 100;
+          },
+          get: function(num) {
+            return num / 100;
           }
         }
       }, {

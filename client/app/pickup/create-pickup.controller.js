@@ -43,6 +43,13 @@ angular.module('chefupApp')
             that.model.lat = that.location.geometry.location.G;
             that.model.lon = that.location.geometry.location.K;
             $scope.submitted = true;
+            var availabilities = [];
+            _.each(that.model.availabilities, function(obj, day) {
+              availabilities.push(_.merge({
+                day: day
+              }, obj));
+            });
+            // that.model.availabilities = availabilities;
             Pickup.$build(_.merge({
               user: Auth.getCurrentUser()._id
             }, that.model)).$save().$then(function(pickup) {
@@ -59,7 +66,8 @@ angular.module('chefupApp')
         },
         location: null,
         model: {
-          availabilities: _.clone(defaultAvailabilities)
+          availabilities: _.clone(defaultAvailabilities),
+          dish: null
         },
         schema: {
           type: 'object',
