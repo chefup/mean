@@ -1,12 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    appRoot = require('app-root-path');
 
-var CommentSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
-});
-
-module.exports = mongoose.model('Comment', CommentSchema);
+module.exports = mongoose.model('Comment', appRoot.require('/common/mongular-schema/comment.js'));

@@ -9,7 +9,7 @@ exports.index = function(req, res) {
   if (req.params.pickupId) {
     query.pickup = req.params.pickupId;
   }
-  Request.find(query, function (err, requests) {
+  Request.find(query).populate('comments').exec(function (err, requests) {
     if(err) { return handleError(res, err); }
 
     return res.json(200, requests);

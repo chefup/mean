@@ -36,6 +36,16 @@
                 </div>
                 <div ng-show="showComments">
                   <h5>Comments</h3>
+                  <div class="col-md-12">
+                    <div ng-repeat="comment in request.comments" class="comment row">
+                      <div class="col-md-2">
+                        <user-avatar user="{ id: comment.user }"></user-avatar>
+                      </div>
+                      <div class="col-md-10">
+                        <p>{{comment.content}}</p>
+                      </div>
+                    </div>
+                  </div>
                   <textarea ng-model="comment" class="form-control" placeholder="Ask a question to the Chef"></textarea>
                   <div class="text-right" style="margin-top: 5px">
                     <a href="#" ng-click="submitComment()" class="btn btn-default">Send message</a>
