@@ -8,7 +8,6 @@ angular.module('chefupApp')
           var that = this;
           $scope.$broadcast("schemaFormValidate");
           if (form.$valid) {
-            debugger;
             $scope.submitted = true;
             Dish.$build(_.merge({
               user: Auth.getCurrentUser()._id
