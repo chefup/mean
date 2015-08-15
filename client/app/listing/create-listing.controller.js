@@ -30,6 +30,11 @@ angular.module('chefupApp')
               title: 'Location',
               required: true
             },
+            price: {
+              type: 'string',
+              title: 'Price',
+              required: true
+            },
             description: {
               type: 'string',
               title: 'Description'
@@ -44,6 +49,9 @@ angular.module('chefupApp')
         },
         form: [{
           key: 'location',
+          type: 'text'
+        }, {
+          key: 'price',
           type: 'text'
         }, {
           key: 'description',

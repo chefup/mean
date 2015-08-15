@@ -1,0 +1,34 @@
+.dishIngredients {
+  padding: 0px;
+  .fa-remove {
+    cursor: pointer;
+    color: red;
+  }
+  li {
+    list-style: none;
+  }
+}
+.addIngredient {
+
+}
+
+.listDish {
+  cursor: pointer;
+  .fa-remove {
+    font-size: 16px;
+    color: red;
+  }
+  ul {
+    padding: 0px;
+  }
+  img {
+    max-width: 100%;
+  }
+  li {
+    cursor: pointer;
+    list-style: none;
+    i {
+      margin-right: 5px;
+    }
+  }
+}

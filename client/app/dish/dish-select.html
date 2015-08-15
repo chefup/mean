@@ -1,2 +1,21 @@
-<h4>Select dish or <a ng-click="createDish()">create a new one</a></h4>
-Lists dishes...
+<h4>Select dish or <a href="#" ng-click="createDish()">create a new one</a></h4>
+<div class="panel panel-default listDish" ng-class="{'panel-success': selected == dish}" ng-repeat="dish in dishes" ng-click="$parent.selected = dish">
+  <div class="panel-heading">
+    {{dish.name}}
+    <span class="pull-right"><i class="fa fa-remove" ng-click="deleteDish(dish, $event)"></i></span>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-3">
+    <img class="img-rounded" src="assets/images/pasta-placeholder.png" ng-src="{{dish.images[0]}}" />
+  </div>
+  <div class="col-md-9">
+    <p>{{dish.description}}</p>
+    <a ng-click="listIngredients(dish, $event)" class="showIngredients"><i class="fa" ng-class="{'fa-caret-down' : !dish.listIngredients, 'fa-caret-up' : dish.listIngredients}"></i> Show ingredients
+    </a>
+    <ul ng-if="dish.listIngredients">
+      <li ng-repeat="ingredient in dish.ingredients">
+        {{ingredient}}
+      </li>
+    </ul>
+  </div>
+</div>
