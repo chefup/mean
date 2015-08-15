@@ -2,18 +2,26 @@
 
 angular.module('chefupApp')
   .controller('MainCtrl', function($scope, $http, $rootScope) {
-    $rootScope.updateMainMap = function()  {
+    $scope.updateMainMap = function()  {
       var location = $rootScope.mainLocation;
-      $scope.map.setCenter(location.geometry.location);
-      $scope.map.setZoom(12);
+      debugger;
+      if (location) {
+        $scope.map.setCenter(location.geometry.location);
+        $scope.map.setZoom(12);
+      }
     };
+    $rootScope.$watch('location', function() {
+      $scope.updateMainMap();
+    });
     var resizeFunc = function() {
       var listingsHeight = $(window).height() - 65 - 20;
       var mapHeight = $(window).height() - 65;
-      $('.main-listings').height(listingsHeight);
-      $('.map-wrap .map').height(mapHeight);
-      $('.map-wrap .map').width($(window).width() - ($('.main-listings').offset().left + $('.main-listings').outerWidth(true)));
-      google.maps.event.trigger($scope.map, 'resize');
+      if ($('.main-listings').length > 0 && $('.map-wrap .map').length > 0) {
+        $('.main-listings').height(listingsHeight);
+        $('.map-wrap .map').height(mapHeight);
+        $('.map-wrap .map').width($(window).width() - ($('.main-listings').offset().left + $('.main-listings').outerWidth(true)));
+        google.maps.event.trigger($scope.map, 'resize');
+      }
     };
     $(window).on('resize', function() {
       resizeFunc();

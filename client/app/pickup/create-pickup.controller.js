@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('CreatePickupCtrl', ['$rootScope', '$scope', '$stateParams', 'PickupSchema', 'Pickup', 'Auth', '$state',
-    function($rootScope, $scope, $stateParams, PickupSchema, Pickup, Auth, $state) {
+  .controller('CreatePickupCtrl', ['$rootScope', '$scope', '$stateParams', 'Pickup', 'Auth', '$state',
+    function($rootScope, $scope, $stateParams, Pickup, Auth, $state) {
       $scope.days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
       $scope.times = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
         "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"
@@ -43,13 +43,6 @@ angular.module('chefupApp')
             that.model.lat = that.location.geometry.location.G;
             that.model.lon = that.location.geometry.location.K;
             $scope.submitted = true;
-            var availabilities = [];
-            _.each(that.model.availabilities, function(obj, day) {
-              availabilities.push(_.merge({
-                day: day
-              }, obj));
-            });
-            // that.model.availabilities = availabilities;
             Pickup.$build(_.merge({
               user: Auth.getCurrentUser()._id
             }, that.model)).$save().$then(function(pickup) {
@@ -84,8 +77,8 @@ angular.module('chefupApp')
             },
             privacy: {
               title: 'Privacy',
-              enum: _.keys(PickupSchema.privacy.enum),
-              default: PickupSchema.privacy.default,
+              enum: ['public', 'private'],
+              default: 'public',
               required: true
             }
           }
@@ -99,13 +92,13 @@ angular.module('chefupApp')
         }, {
           key: 'privacy',
           type: 'radios',
-          titleMap: _.chain(PickupSchema.privacy.enum).keys().reduce(function(acc, key) {
-            acc.push({
-              value: key,
-              name: PickupSchema.privacy.enum[key]
-            });
-            return acc;
-          }, []).value(),
+          titleMap: [{
+            value: 'public',
+            name: 'Public'
+          }, {
+            value: 'private',
+            name: 'Private'
+          }],
         }]
       };
     }

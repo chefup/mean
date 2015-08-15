@@ -10,9 +10,7 @@ angular.module('chefupApp')
 
     $scope.location = null;
     $scope.$watch('location', function(location) {
-      $rootScope.location = location;
-      $rootScope.apply();
-      $scope.apply();
+      $rootScope.mainLocation = location;
     });
 
     $scope.isCollapsed = true;
