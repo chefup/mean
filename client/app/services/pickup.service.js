@@ -2,5 +2,5 @@
 
 angular.module('chefupApp')
   .factory('Pickup', function(restmod) {
-    return restmod.model('/api/pickups');
+    return restmod.model('/api/pickup');
   });
