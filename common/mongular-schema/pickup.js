@@ -5,6 +5,9 @@
         type: 'ObjectId',
         ref: 'Dish'
       },
+      tags: [{
+        type: String
+      }],
       privacy: {
         type: String,
         enum: {

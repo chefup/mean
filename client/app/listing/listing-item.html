@@ -7,10 +7,13 @@
   </div>
   <div class="panel-body col-md-8">
     <p>{{item.dish.description}}</p>
+    <div class="tags">
+       <span class="label label-default" ng-repeat="tag in item.tags">{{tag}}</span>
+    </div>
   </div>
   <div class="ratings">
     <a href="#" class="btn btn-success"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></a><br />
     <a href="#" class="btn btn-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></a><br />
-    <a href="#" class="btn btn-danger">$ 5.99</i></a>
+    <a href="#" class="btn btn-danger">$ {{item.price}}</i></a>
   </div>
 </div>
