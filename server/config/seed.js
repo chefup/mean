@@ -33,35 +33,35 @@ Thing.find({}).remove(function() {
 });
 
 
-User.find({}).remove(function() {
-  User.create({
-    provider: 'facebook',
-    name: 'Open Graph Test User',
-    email: 'open_zqwrohc_user@tfbnw.net',
-    facebook: {
-      id: 153275765007258
-    }
-  }, function(err, testUser) {
-    Pickup.find({}).remove(function() {
-      Dish.create({
-        name: 'Poached Heaven',
-        description: 'Smashed avo goodness. Poached eggs smothered with herbs and spices atop a buttery french toast. Comes with avocado to share.',
-        images: [
-          'https://c1.staticflickr.com/5/4028/4390644817_a6c4bbcac9_b.jpg'
-        ],
-        price: 50,
-        user: testUser
-      }, function(err, dish) {
-        Pickup.create({
-          user: testUser,
-          dish: dish,
-          tags: ['fresh', 'breakfast', 'gluten free']
-        }, function() {
-          console.log('finished populating pickups');
-        });
-      })
+Dish.find({}).remove(function() {
+  User.find({}).remove(function() {
+    User.create({
+      provider: 'facebook',
+      name: 'Open Graph Test User',
+      email: 'open_zqwrohc_user@tfbnw.net',
+      facebook: {
+        id: 153275765007258
+      }
+    }, function(err, testUser) {
+      Pickup.find({}).remove(function() {
+        Dish.create({
+          name: 'Poached Heaven',
+          description: 'Smashed avo goodness. Poached eggs smothered with herbs and spices atop a buttery french toast. Comes with avocado to share.',
+          images: [
+            'https://c1.staticflickr.com/5/4028/4390644817_a6c4bbcac9_b.jpg'
+          ],
+          user: testUser
+        }, function(err, dish) {
+          Pickup.create({
+            user: testUser,
+            dish: dish,
+            price: 50,
+            tags: ['fresh', 'breakfast', 'gluten free']
+          }, function() {
+            console.log('finished populating pickups');
+          });
+        })
+      });
     });
   });
 });
-
-Dish.find({}).remove();
