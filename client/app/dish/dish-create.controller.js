@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('DishCreateCtrl', ['$scope', '$http', 'Auth', 'Dish',
-    function($scope, $http, Auth, Dish) {
+  .controller('DishCreateCtrl', ['$scope', '$http', 'Auth', 'Dish', 'cloudinary',
+    function($scope, $http, Auth, Dish, Cloudinary) {
       $scope.createDish = {
         submit: function(form) {
           var that = this;
           $scope.$broadcast("schemaFormValidate");
           if (form.$valid) {
+            debugger;
             $scope.submitted = true;
             Dish.$build(_.merge({
               user: Auth.getCurrentUser()._id
@@ -16,14 +17,15 @@ angular.module('chefupApp')
               form.$setPristine();
               $scope.submitted = false;
               $scope.$close();
-              $scope.$parent.dishes.push(dish);
+              $scope.$parent.dishes.splice(0, 0, dish);
             }, function(failure) {
               $scope.submitted = false;
             });
           }
         },
         model: {
-          ingredients: []
+          ingredients: [],
+          images: []
         },
         schema: {
           type: 'object',

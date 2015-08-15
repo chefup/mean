@@ -1,4 +1,5 @@
 .dishIngredients {
+  font-size: 16px;
   padding: 0px;
   .fa-remove {
     cursor: pointer;
@@ -14,7 +15,7 @@
 
 .createPickup {
   .selectDishes {
-    max-height: 400px;
+    max-height: 650px;
     overflow: auto;
     padding-right: 10px;
   }

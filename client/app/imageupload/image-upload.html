@@ -1,0 +1,31 @@
+<div id="direct_upload" 
+    ng-file-drop
+    ng-file-drag-over-class="dragOverClass($event)"
+    ng-model="files"
+    ng-multiple="true">
+    <form>
+        <h6>You can drag and drop or click to choose photos of your dish</h6>
+        <div class="form_line">
+            <div class="form_controls">
+            <div class="upload_button_holder">
+                <div href="#" class="btn btn-primary" ng-file-select ng-multiple="true" title="upload" resetOnClick="true" ng-model="files">Choose photos</div>
+            </div>
+            </div>
+        </div>
+    </form>
+    <div class="file" ng-repeat="file in files">
+        <h6>{{file.name}}</h6>
+        <div class="status" ng-if="file.progress < 100">{{file.status}}</div>
+        <div class="success" ng-if="file.progress == 100">Successfully uploaded!</div>
+        <img ng-src="{{file.url}}" />
+        <div class="progress-bar">
+          <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
+        </div>
+        <div class="form_line">
+            <div class="form_controls">
+                <div class="preview"></div>
+            </div>
+        </div>
+    </div>
+    
+</div>

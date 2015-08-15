@@ -10,7 +10,9 @@ angular.module('chefupApp', [
   'restmod',
   'schemaForm',
   'google.places',
-  'ngMap'
+  'ngMap',
+  'cloudinary',
+  'angularFileUpload'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -46,6 +48,13 @@ angular.module('chefupApp', [
       }
     }
   };
+})
+
+.constant('cloudinary', {
+  cloud: 'dmlf2hfac',
+  key: '212537978292943',
+  secret: 'wd5MxqtUcqKTkoivER1CcTgfLjo',
+  preset: 'jazwlzur'
 })
 
 .run(function($rootScope, $location, Auth) {
