@@ -22,6 +22,15 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   color: white;
 }
 
+.has-success input[type=radio],
+.has-success input[type=radio]:focus {
+  box-shadow: none;
+}
+.has-success .radio,
+.has-success.schema-form-radios label {
+  color: inherit;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'admin/admin.scss';
