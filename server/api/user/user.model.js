@@ -29,13 +29,24 @@ var UserSchema = new Schema({
  * Virtuals
  */
 
+UserSchema
+ .virtual('avatar')
+ .get(function() {
+   var avatar = null;
+   switch(this.provider) {
+     case 'facebook':
+     return 'https://graph.facebook.com/v2.4/' + this.facebook.id + '/picture?width=170';
+   }
+ });
+
 // Public profile information
 UserSchema
   .virtual('profile')
   .get(function() {
     return {
       'name': this.name,
-      'role': this.role
+      'role': this.role,
+      'avatar': this.avatar
     };
   });
 
