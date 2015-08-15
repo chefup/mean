@@ -16,6 +16,7 @@ var UserSchema = new Schema({
   },
   provider: String,
   facebook: {},
+  stripe: {},
   dishes: [{
     type: Schema.ObjectId,
     ref: "Dish"

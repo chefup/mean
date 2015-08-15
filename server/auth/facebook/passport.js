@@ -10,8 +10,6 @@ exports.setup = function (User, config) {
       enableProof: true
     },
     function(accessToken, refreshToken, profile, done) {
-
-
       User.findOne({
         'facebook.id': profile.id
       },
@@ -20,7 +18,6 @@ exports.setup = function (User, config) {
           return done(err);
         }
         if (!user) {
-          console.log(profile);
           user = new User({
             name: profile.displayName,
             email: profile.emails[0].value,
@@ -29,8 +26,8 @@ exports.setup = function (User, config) {
             facebook: profile._json
           });
           user.save(function(err) {
-            if (err) done(err);
-            return done(err, user);
+            if (err) return done(err);
+            done(err, user);
           });
         } else {
           return done(err, user);

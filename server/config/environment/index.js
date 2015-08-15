@@ -47,6 +47,12 @@ var all = {
     callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
   },
 
+  stripe: {
+    clientID:     process.env.STRIPE_ID,
+    clientSecret: process.env.STRIPE_SECRET,
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/stripe/callback'
+  }
+
 };
 
 // Export the config object based on the NODE_ENV

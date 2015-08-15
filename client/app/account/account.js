@@ -5,8 +5,9 @@ angular.module('chefupApp')
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: 'app/account/login/login.html',
-        controller: 'LoginCtrl'
+        controller: function($location) {
+          $location.path('/auth/facebook');
+        }
       })
       .state('settings', {
         url: '/settings',

@@ -56,6 +56,10 @@ angular.module('chefupApp')
         return currentUser.role === 'admin';
       },
 
+      isChef: function() {
+        return currentUser.role === 'chef';
+      },
+
       /**
        * Get auth token
        */

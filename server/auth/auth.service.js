@@ -18,6 +18,11 @@ function isAuthenticated() {
     // Validate jwt
     .use(function(req, res, next) {
       // allow access_token to be passed through query parameter as well
+      if(req.cookies && req.cookies.hasOwnProperty('token')) {
+        try {
+          req.headers.authorization = 'Bearer ' + JSON.parse(req.cookies.token);
+        } catch(e) {}
+      }
       if(req.query && req.query.hasOwnProperty('access_token')) {
         req.headers.authorization = 'Bearer ' + req.query.access_token;
       }

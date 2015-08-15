@@ -5,6 +5,7 @@ angular.module('chefupApp')
     $scope.isLoggedIn = Auth.isLoggedIn();
     $scope.pickup = Pickup.$find($stateParams.pickupId).$then(function() {
       $scope.user = User.$find($scope.pickup.user);
+      $scope.isChef = $scope.pickup.user == Auth.getCurrentUser().id;
     });
     $scope.showComments = false;
 
