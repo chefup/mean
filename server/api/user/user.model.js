@@ -20,6 +20,14 @@ var UserSchema = new Schema({
     type: Schema.ObjectId,
     ref: "Dish"
   }],
+  pickups: [{
+    type: Schema.ObjectId,
+    ref: "Pickup"
+  }],
+  comments: [{
+    type: Schema.ObjectId,
+    ref: "Comment"
+  }],
   caption: {
     type: String
   }

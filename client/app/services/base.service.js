@@ -28,7 +28,8 @@ angular.module('chefupApp').factory('BaseService', ['$resource', '$injector',
                 if (field.childPath) {
                   if (field.ref === 'User')  {
                     // To-do: add to current user's dishes
-
+                    var User = $injector.get('User');
+                    User[field.childPath].push(item);
                   } else {
                     var parentService = $injector.get(field.ref + 'Service');
                     var parentId = (_.isPlainObject(item[parentPath])) ? item[parentPath]._id : item[parentPath];

@@ -1,22 +1,18 @@
 (function(isNode, isAngular) {
-  var DishSchema = function() {
+  var CommentSchema = function() {
     var sharedSchema = {
-      name: {
-        type: String,
-        required: true
-      },
-      price: {
-        type: Number,
-        required: true
-      },
-      ingredients: [{
+      content: {
         type: String
-      }],
+      },
+      pickup: {
+        type: 'ObjectId',
+        ref: 'Pickup'
+      },
       user: {
         type: 'ObjectId',
         ref: 'User',
         required: true,
-        childPath: 'dishes'
+        childPath: 'comments'
       }
     };
     if (isAngular) {
@@ -24,13 +20,7 @@
     } else if (isNode) {
       var mongular = require('mongular-schema');
 
-      var schema = mongular.merge(sharedSchema, {
-        price: {
-          set: function(num) {
-            return num * 100;
-          }
-        }
-      }, {
+      var schema = mongular.merge(sharedSchema, {}, {
         toObject: {
           getters: true,
           virtuals: true
@@ -53,10 +43,10 @@
   };
   if (isAngular) {
     // AngularJS module definition
-    angular.module('chefupApp').factory('DishSchema', [DishSchema]);
+    angular.module('chefupApp').factory('CommentSchema', [CommentSchema]);
   } else if (isNode) {
     // NodeJS module definition
-    module.exports = DishSchema();
+    module.exports = CommentSchema();
   }
 })(typeof module !== 'undefined' && module.exports,
   typeof angular !== 'undefined');
