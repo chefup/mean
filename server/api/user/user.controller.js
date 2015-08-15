@@ -49,7 +49,7 @@ exports.show = function(req, res, next) {
 
   User.findById(userId, function(err, user) {
     if (err) return next(err);
-    if (!user) return res.send(401);
+    if (!user) return res.send(404);
     res.json(user.profile);
   });
 };
@@ -65,7 +65,7 @@ exports.destroy = function(req, res) {
   });
 };
 
-/* 
+/*
  * Updates a user
  */
 exports.update = function(req, res) {
@@ -86,27 +86,6 @@ exports.update = function(req, res) {
       }
       return res.json(200, pickup);
     });
-  });
-};
-
-/**
- * Change a users password
- */
-exports.changePassword = function(req, res, next) {
-  var userId = req.user._id;
-  var oldPass = String(req.body.oldPassword);
-  var newPass = String(req.body.newPassword);
-
-  User.findById(userId, function(err, user) {
-    if (user.authenticate(oldPass)) {
-      user.password = newPass;
-      user.save(function(err) {
-        if (err) return validationError(res, err);
-        res.send(200);
-      });
-    } else {
-      res.send(403);
-    }
   });
 };
 

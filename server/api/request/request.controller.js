@@ -15,13 +15,13 @@ function createStripeCharge(stripeCardToken, pickup, res, cb) {
     User.findById(pickup.user, function(err, user) {
       if (err) { return handleError(res, err); }
       stripe.charges.create({
-        amount: pickup.price,
+        amount: pickup.price * 100,
         currency: 'aud',
         capture: false,
         source: stripeCardToken,
         description: dish.name + ' from ' + user.name + ' (via Chef.up)',
         statement_descriptor: 'CHEF.UP ' + user.name.replace(/<>'"/g, '').substring(0, 14),
-        application_fee: 1000 // $1
+        application_fee: 100 // $1
       }, { stripe_account: user.stripe.stripe_user_id }, cb);
     });
   });
@@ -30,28 +30,41 @@ function createStripeCharge(stripeCardToken, pickup, res, cb) {
 exports.canAccessRequest = function() {
   return compose()
     .use(function(req, res, next) {
-      Request.findById(req.params.requestId).populate('pickup').exec(function(err, request) {
+      Request.findById(req.params.requestId).populate('pickup').populate('comments').exec(function(err, request) {
         if(err) { return handleError(res, err); }
+        if(!request) { return res.send(404); }
         if(request.pickup && (request.user.equals(req.user._id) || request.pickup.user.equals(req.user._id))) {
           req.request = request;
           return next();
         }
-        res.send(401);
+        res.send(403);
       });
     });
 };
 
 // Get list of requests for a pickup
 exports.index = function(req, res) {
-  var query = { user: req.user._id };
+  var cb = function(query) {
+    Request.find(query).populate('comments').exec(function (err, requests) {
+      if(err) { return handleError(res, err); }
+
+      return res.json(200, requests);
+    });
+  };
+  var query = { };
+
   if (req.params.pickupId) {
     query.pickup = req.params.pickupId;
+    Pickup.findById(query.pickup, function(err, pickup) {
+      if(err) { return handleError(res, err); }
+      if(!pickup.user.equals(req.user._id)) { // if current user does not pickup
+        query.user = req.user._id;
+      }
+      cb(query);
+    });
+  } else {
+    cb(query);
   }
-  Request.find(query).populate('comments').exec(function (err, requests) {
-    if(err) { return handleError(res, err); }
-
-    return res.json(200, requests);
-  });
 };
 
 // Get a single request
@@ -108,6 +121,29 @@ exports.update = function(req, res) {
       });
     });
   }
+  if (req.request.status == 'payment_committed' && req.body.status == 'accepted') {
+    if (!req.request.pickup.user.equals(req.user._id)) return res.send(403);
+    req.request.status = req.body.status;
+    req.request.save(function(err) {
+      if (err) return handleError(res, err);
+      res.json(200, req.request);
+    });
+  }
+  if (req.request.status == 'accepted' && req.body.status == 'delivered') {
+    User.findById(req.request.pickup.user, function(err, user) {
+      if (err) { return handleError(res, err); }
+      if (!user) return res.send(500);
+      stripe.charges.capture(req.request.charge.id, { stripe_account: user.stripe.stripe_user_id }, function(err, charge) {
+        req.request.status = req.body.status;
+        req.request.charge = charge;
+        req.request.save(function(err) {
+          if (err) return handleError(res, err);
+          res.json(200, req.request);
+        });
+      });
+    });
+  }
+
 };
 
 

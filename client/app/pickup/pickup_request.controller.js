@@ -9,20 +9,26 @@ angular.module('chefupApp')
       });
     }
 
-    $scope.commitToBuy = function() {
-      $scope.checkout.open({
-        name: $scope.$parent.pickup.dish.name,
-        description: $scope.$parent.pickup.dish.description,
-        currency: "aud",
-        amount: $scope.$parent.pickup.price
-      });
+    $scope.$parent.onStripeToken = function(token) {
+      $scope.request.stripeCardToken = token.id;
+      $scope.request.$save();
+    };
+
+    $scope.$parent.commitToBuy = $scope.commitToBuy;
+
+    $scope.commitToCook = function() {
+      $scope.request.status = 'accepted';
+      $scope.request.$save();
+    };
+
+    $scope.delivered = function() {
+      $scope.request.status = 'delivered';
+      $scope.request.$save();
     };
 
     $scope.cancel = function() {
       $scope.request.$destroy().$then(function() {
-        $scope.$apply(function() {
-          $location.path('/pickups/' + $stateParams.pickupId);
-        });
+        $location.path('/pickups/' + $stateParams.pickupId);
       });
     };
 
@@ -30,7 +36,9 @@ angular.module('chefupApp')
       var comment = $scope.comment;
       $scope.comment = '';
       var cb = function() {
-        $scope.request.comments.$create({ content: comment });
+        $scope.request.comments.$create({ content: comment }).$then(function() {
+          $location.path('/pickups/' + $stateParams.pickupId + '/requests/' + $scope.request._id);
+        });
       };
       if ($scope.request.id) {
         cb();

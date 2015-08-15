@@ -18,9 +18,9 @@
             <div class="tags">
                <span class="label label-default" ng-repeat="tag in pickup.tags">{{tag}}</span>
             </div>
-            <div class="pickup-buttons" ng-show="isLoggedIn">
-              <a href="#" ng-show="!isChef && !requestOpen" ng-click="inquire()" class="btn btn-block btn-warning">Inquire</a>
-              <a href="#" ng-show="!isChef && (!request || !request.status)" ng-click="commitToBuy()" class="btn btn-block btn-info">Commit to Pay</a>
+            <div class="pickup-buttons" ng-show="isLoggedIn && !requestOpen && !isChef">
+              <a href="#" ng-click="inquire()" class="btn btn-block btn-warning">Inquire</a>
+              <a href="#" ng-click="commitToBuy()" class="btn btn-block btn-info">Commit to Pay</a>
             </div>
           </div>
           <div class="col-md-12" style="margin-top: 15px;">
