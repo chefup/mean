@@ -7,15 +7,16 @@ angular.module('chefupApp', [
   'ui.router',
   'ui.router.tabs',
   'ui.bootstrap',
-  'restmod'
+  'restmod',
+  'schemaForm'
 ])
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-  $urlRouterProvider
-    .otherwise('/');
+  .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    $urlRouterProvider
+      .otherwise('/');
 
-  $locationProvider.html5Mode(true);
-  $httpProvider.interceptors.push('authInterceptor');
-})
+    $locationProvider.html5Mode(true);
+    $httpProvider.interceptors.push('authInterceptor');
+  })
 
 .factory('authInterceptor', function($rootScope, $q, $cookieStore, $location) {
   return {
