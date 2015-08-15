@@ -43,6 +43,12 @@ var UserSchema = new Schema({
  */
 
 UserSchema
+.virtual('rating')
+.get(function() {
+  return 5;
+});
+
+UserSchema
  .virtual('avatar')
  .get(function() {
    var avatar = null;
@@ -60,6 +66,7 @@ UserSchema
       'name': this.name,
       'role': this.role,
       'avatar': this.avatar,
+      'rating': this.rating,
       'caption': this.caption,
       'stripe': this.stripe_profile
     };
