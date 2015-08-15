@@ -3,27 +3,26 @@
 var _ = require('lodash');
 var Request = require('./request.model');
 var Dish = require('../dish/dish.model');
+var Pickup = require('../pickup/pickup.model');
 var User = require('../user/user.model');
 var compose = require('composable-middleware');
 var config = require('../../config/environment');
 var stripe = require('stripe')(config.stripe.clientSecret);
 
-function createStripeCharge(stripeCardToken, request, res, cb) {
-  Dish.findById(request.pickup.dish, function(err, dish) {
+function createStripeCharge(stripeCardToken, pickup, res, cb) {
+  Dish.findById(pickup.dish, function(err, dish) {
     if (err) { return handleError(res, err); }
-    User.findById(request.pickup.user, function(err, user) {
+    User.findById(pickup.user, function(err, user) {
       if (err) { return handleError(res, err); }
       stripe.charges.create({
-        amount: request.pickup.price,
+        amount: pickup.price,
         currency: 'aud',
         capture: false,
         source: stripeCardToken,
         description: dish.name + ' from ' + user.name + ' (via Chef.up)',
         statement_descriptor: 'CHEF.UP ' + user.name.replace(/<>'"/g, '').substring(0, 14),
         application_fee: 1000 // $1
-      }, {
-        stripe_account: user.stripe.stripe_user_id
-      }, cb);
+      }, { stripe_account: user.stripe.stripe_user_id }, cb);
     });
   });
 }
@@ -69,14 +68,13 @@ exports.create = function(req, res) {
     Request.create(data, function(err, request) {
       if(err) { return handleError(res, err); }
       if(stripeCardToken) {
-        request.pickup = pickup;
-        createStripeCharge(stripeCardToken, req.request, res, function(err, charge) {
+        createStripeCharge(stripeCardToken, pickup, res, function(err, charge) {
           if (err) { return handleError(res, err); }
           request.status = 'payment_committed';
           request.charge = charge;
           request.save(function(err) {
             if (err) return handleError(res, err);
-            res.json(201, req.request);
+            res.json(201, request);
           });
         });
       } else {
@@ -90,7 +88,7 @@ exports.create = function(req, res) {
 // Updates an existing dish in the DB.
 exports.update = function(req, res) {
   if (req.request.status == 'enquiry' && req.body.stripeCardToken) {
-    createStripeCharge(req.body.stripeCardToken, req.request, res, function(err, charge) {
+    createStripeCharge(req.body.stripeCardToken, req.request.pickup, res, function(err, charge) {
       if (err) { return handleError(res, err); }
       req.request.status = 'payment_committed';
       req.request.charge = charge;
@@ -100,6 +98,18 @@ exports.update = function(req, res) {
       });
     });
   }
+};
+
+
+// Deletes a request from the DB.
+exports.destroy = function(req, res) {
+  if (req.request.status != 'payment_committed') return res.send(400);
+  req.request.remove(function(err) {
+    if (err) {
+      return handleError(res, err);
+    }
+    return res.send(204);
+  });
 };
 
 function handleError(res, err) {
