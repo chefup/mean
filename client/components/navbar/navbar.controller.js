@@ -15,6 +15,13 @@ angular.module('chefupApp')
         $rootScope.updateLocation();
       }
     };
+    $scope.search = "";
+    $scope.changeSearch = function() {
+      $rootScope.mainSearch = $scope.search;
+      if ($rootScope.updateSearch) {
+        $rootScope.updateSearch();
+      }
+    };
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

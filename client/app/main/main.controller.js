@@ -4,7 +4,7 @@ angular.module('chefupApp')
   .controller('MainCtrl', function($scope, $http, $rootScope) {
     $scope.updateMainMap = function()  {
       var location = $rootScope.mainLocation;
-      if (location) {
+      if (location && location.geometry) {
         $scope.map.setCenter(location.geometry.location);
         $scope.map.setZoom(12);
       }
