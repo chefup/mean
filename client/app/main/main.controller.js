@@ -9,9 +9,9 @@ angular.module('chefupApp')
         $scope.map.setZoom(12);
       }
     };
-    $rootScope.updateLocation = function() {
+    $rootScope.$on('updateLocation', function() {
       $scope.updateMainMap();
-    };
+    });
     var resizeFunc = function() {
       var listingsHeight = $(window).height() - 65 - 20;
       var mapHeight = $(window).height() - 65;
@@ -32,6 +32,13 @@ angular.module('chefupApp')
         map.setCenter(LatLng);
         $scope.map.setZoom(9);
       };
+      $rootScope.mainMap = $scope.map;
+      $scope.map.setOptions({
+        draggable: false,
+        zoomControl: false,
+        scrollwheel: false,
+        disableDoubleClickZoom: true
+      });
       if ($rootScope.geoIP) {
         changeMap();
       } else {
@@ -39,6 +46,15 @@ angular.module('chefupApp')
           changeMap();
         });
       }
+      var listener = function(e) {
+        // _.delay(function() {
+        $rootScope.$broadcast('updateLocation');
+        // }, 100);
+        // if ($scope.map.removeEventListener) {
+        //   $scope.map.removeEventListener('tilesloaded', listener);
+        // }
+      };
+      $scope.map.addListener('tilesloaded', listener);
     });
     $scope.tabData = [{
       heading: 'All',

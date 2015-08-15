@@ -1,7 +1,7 @@
 <div class="panel panel-default row">
   <a ng-href="/pickups/{{item._id}}" class="click-target"></a>
   <div class="panel-media col-md-4 row">
-    <img class="col-md-12" ng-src="{{item.dish.images[0]}}" />
+    <img class="col-md-12" ng-src="{{item.dish.images[0] || 'assets/images/pasta-placeholder.png'}}" />
     <div class="overlay">
       <span class="dish-name">{{item.dish.name}}</span>
     </div>

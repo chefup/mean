@@ -11,9 +11,7 @@ angular.module('chefupApp')
     $scope.location = null;
     $scope.updateLocation = function() {
       $rootScope.mainLocation = $scope.location;
-      if ($rootScope.updateLocation) {
-        $rootScope.updateLocation();
-      }
+      $rootScope.$broadcast('updateLocation');
     };
     $scope.search = "";
     $scope.changeSearch = function() {
