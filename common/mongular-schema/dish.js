@@ -8,6 +8,15 @@
       price: {
         type: Number,
         required: true
+      },
+      ingredients: [{
+        type: String
+      }],
+      owner: {
+        type: 'ObjectId',
+        ref: 'User',
+        required: true,
+        childPath: 'dishes'
       }
     };
     if (isAngular) {
