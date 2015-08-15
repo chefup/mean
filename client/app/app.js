@@ -7,7 +7,8 @@ angular.module('chefupApp', [
   'ui.router',
   'ui.router.tabs',
   'ui.bootstrap',
-  'restmod'
+  'restmod',
+  'schemaForm'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, restmodProvider) {
     $urlRouterProvider
@@ -15,7 +16,6 @@ angular.module('chefupApp', [
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-    restmodProvider.rebase('AMSApi');
   })
 
 .factory('authInterceptor', function($rootScope, $q, $cookieStore, $location) {
