@@ -72,7 +72,8 @@ exports.update = function(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  User.findById(req.params.id, function(err, pickup) {
+  var id = (req.params.id == 'me') ? req.user._id : req.params.id;
+  User.findById(id, function(err, pickup) {
     if (err) {
       return handleError(res, err);
     }
@@ -109,3 +110,7 @@ exports.me = function(req, res, next) {
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
 };
+
+function handleError(res, err) {
+  return res.send(500, err);
+}

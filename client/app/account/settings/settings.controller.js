@@ -2,17 +2,14 @@
 
 angular.module('chefupApp')
   .controller('SettingsCtrl', function($scope, $window, User, Auth) {
-    var user = User.$find(Auth.getCurrentUser()._id).$then(function(user) {
-      $scope.model.caption = user.caption;
-    });
     $scope.setCaption = {
       submit: function(form) {
         var that = this;
         $scope.$broadcast("schemaFormValidate");
         if (form.$valid) {
-          user.caption = that.model.caption;
-          user.role = "chef";
-          user.$save();
+          $scope.user.caption = that.model.caption;
+          $scope.user.role = "chef";
+          $scope.user.$save();
         }
       },
       model: {
@@ -37,9 +34,12 @@ angular.module('chefupApp')
         type: 'submit'
       }]
     };
+
     $scope.errors = {};
     $scope.user = Auth.getCurrentUser();
+    $scope.setCaption.model.caption = $scope.user.caption;
     $scope.hasStripe = !!Auth.getCurrentUser().stripe;
+
     $scope.linkStripe = function() {
       $window.location.href = '/auth/stripe';
     };

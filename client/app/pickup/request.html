@@ -14,6 +14,7 @@
   <div class="pull-left status text-muted">
     <span ng-show="request.status == 'payment_committed'">Current Status: Waiting for approval</span>
     <span ng-show="request.status == 'accepted'">Current Status: Will be ready for pick-up on XX/XX/XX</span>
+    <span ng-show="request.status == 'delivered'">This transaction has been completed. Please rate your experience.</span>
   </div>
   <div class="text-right" style="margin-top: 5px">
     <a href="#" ng-show="!$parent.isChef && (!request || request.status == 'enquiry')" ng-click="$parent.commitToBuy()" class="btn btn-success">Commit to Pay</a>
