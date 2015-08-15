@@ -21,6 +21,11 @@ angular.module('chefupApp')
       $scope.request.$save();
     };
 
+    $scope.delivered = function() {
+      $scope.request.status = 'delivered';
+      $scope.request.$save();
+    };
+
     $scope.cancel = function() {
       $scope.request.$destroy().$then(function() {
         $location.path('/pickups/' + $stateParams.pickupId);

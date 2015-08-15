@@ -21,7 +21,7 @@ function createStripeCharge(stripeCardToken, pickup, res, cb) {
         source: stripeCardToken,
         description: dish.name + ' from ' + user.name + ' (via Chef.up)',
         statement_descriptor: 'CHEF.UP ' + user.name.replace(/<>'"/g, '').substring(0, 14),
-        application_fee: 1000 // $1
+        application_fee: 100 // $1
       }, { stripe_account: user.stripe.stripe_user_id }, cb);
     });
   });
@@ -129,6 +129,21 @@ exports.update = function(req, res) {
       res.json(200, req.request);
     });
   }
+  if (req.request.status == 'accepted' && req.body.status == 'delivered') {
+    User.findById(req.request.pickup.user, function(err, user) {
+      if (err) { return handleError(res, err); }
+      if (!user) return res.send(500);
+      stripe.charges.capture(req.request.charge.id, { stripe_account: user.stripe.stripe_user_id }, function(err, charge) {
+        req.request.status = req.body.status;
+        req.request.charge = charge;
+        req.request.save(function(err) {
+          if (err) return handleError(res, err);
+          res.json(200, req.request);
+        });
+      });
+    });
+  }
+
 };
 
 
