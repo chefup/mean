@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('chefupApp')
-  .factory('AService', ['BaseService',
+  .factory('PickupService', ['BaseService',
     function(BaseService) {
       return angular.extend(BaseService({
-        resource: 'A',
-        schema: 'ASchema'
+        resource: 'Pickup',
+        schema: 'PickupSchema'
       }), {
         additionalFunction: function() {
           return true;
