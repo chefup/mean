@@ -12,7 +12,15 @@
 
 }
 
-.listDish {
+.createPickup {
+  .selectDishes {
+    max-height: 400px;
+    overflow: auto;
+    padding-right: 10px;
+  }
+}
+
+.selectDish {
   cursor: pointer;
   .fa-remove {
     font-size: 16px;

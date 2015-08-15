@@ -9,7 +9,8 @@ angular.module('chefupApp', [
   'ui.bootstrap',
   'restmod',
   'schemaForm',
-  'google.places'
+  'google.places',
+  'ngMap'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

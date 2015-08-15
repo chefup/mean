@@ -1,8 +1,28 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('CreatePickupCtrl', ['$scope', '$stateParams', 'PickupSchema', 'Pickup', 'Auth', '$state',
-    function($scope, $stateParams, PickupSchema, Pickup, Auth, $state) {
+  .controller('CreatePickupCtrl', ['$rootScope', '$scope', '$stateParams', 'PickupSchema', 'Pickup', 'Auth', '$state',
+    function($rootScope, $scope, $stateParams, PickupSchema, Pickup, Auth, $state) {
+      $scope.$on('mapInitialized', function(event, map) {
+        var changeMap = function() {
+          var LatLng = new google.maps.LatLng($rootScope.geoIP[0], $rootScope.geoIP[1]);
+          map.setCenter(LatLng);
+          $scope.map.setZoom(9);
+        };
+        if ($rootScope.geoIP) {
+          changeMap();
+        } else {
+          $rootScope.$watch('geoIP', function() {
+            changeMap();
+          });
+        }
+      });
+      $scope.updateMap = function()  {
+        var location = $scope.createPickup.location;
+        $scope.map.setCenter(location.geometry.location);
+        $scope.map.setZoom(12);
+        // $scope.map.fitBounds(new google.maps.LatLngBounds(location.geometry.location));
+      };
       $scope.createPickup = {
         submit: function(form) {
           var that = this;
