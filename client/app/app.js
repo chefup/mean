@@ -10,7 +10,7 @@ angular.module('chefupApp', [
   'restmod',
   'schemaForm'
 ])
-  .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, restmodProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
       .otherwise('/');
 
