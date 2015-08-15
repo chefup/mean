@@ -2,8 +2,10 @@ angular.module("chefupApp").directive("locationLookup", ['$http',
   function($http) {
     return {
       restrict: 'E',
-      templateUrl: 'components/navbar/locationlookup.html',
-      scope: {},
+      templateUrl: 'components/lookup/locationlookup.html',
+      scope: {
+        location: '='
+      },
       link: function($scope, element, attrs) {
         var $input = $("#locationLookup");
         $http.get('http://ip-api.com/json').then(function(response) {
