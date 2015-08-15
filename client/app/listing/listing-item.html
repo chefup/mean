@@ -1,5 +1,16 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    {{item._id}}
+<div class="panel panel-default row">
+  <div class="panel-media col-md-4 row">
+    <img class="col-md-12" ng-src="{{item.dish.images[0]}}" />
+    <div class="overlay">
+      <span class="dish-name">{{item.dish.name}}</span>
+    </div>
+  </div>
+  <div class="panel-body col-md-8">
+    <p>{{item.dish.description}}</p>
+  </div>
+  <div class="ratings">
+    <a href="#" class="btn btn-success"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></a><br />
+    <a href="#" class="btn btn-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></a><br />
+    <a href="#" class="btn btn-danger">$ 5.99</i></a>
   </div>
 </div>

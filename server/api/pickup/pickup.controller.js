@@ -5,15 +5,16 @@ var Pickup = require('./pickup.model');
 
 // Get list of pickups
 exports.index = function(req, res) {
-  Pickup.find(function (err, pickups) {
+  Pickup.find().populate('dish').exec(function (err, pickups) {
     if(err) { return handleError(res, err); }
+
     return res.json(200, pickups);
   });
 };
 
 // Get a single pickup
 exports.show = function(req, res) {
-  Pickup.findById(req.params.id, function (err, pickup) {
+  Pickup.findById(req.params.id).populate('dish').exec(function (err, pickup) {
     if(err) { return handleError(res, err); }
     if(!pickup) { return res.send(404); }
     return res.json(pickup);

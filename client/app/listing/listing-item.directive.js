@@ -10,6 +10,7 @@ angular.module('chefupApp')
       templateUrl: 'app/listing/listing-item.html',
       scope: {
         item: '='
-      }
+      },
+      controller: 'ListingItemCtrl'
     };
   });

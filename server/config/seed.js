@@ -44,7 +44,11 @@ User.find({}).remove(function() {
   }, function(err, testUser) {
     Pickup.find({}).remove(function() {
       Dish.create({
-        name: 'Test Dish',
+        name: 'Poached Heaven',
+        description: 'Smashed avo goodness. Poached eggs smothered with herbs and spices atop a buttery french toast. Comes with avocado to share.',
+        images: [
+          'https://c1.staticflickr.com/5/4028/4390644817_a6c4bbcac9_b.jpg'
+        ],
         price: 50,
         user: testUser
       }, function(err, dish) {
