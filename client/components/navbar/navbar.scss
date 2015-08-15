@@ -7,3 +7,23 @@
 #navbar-main .location-lookup {
   width: 400px;
 }
+
+#navbar-main .btn {
+  margin-top: 15px;
+}
+
+// Colors
+// --------------------------------------------------
+
+$btnText:                           #fff;
+$btnTextAlt:                        #000;
+
+$btnFacebookBackground:             #3B5998;
+$btnFacebookBackgroundHighlight:    #133783;
+
+// Social buttons
+// --------------------------------------------------
+
+.btn-facebook {
+  @include button-variant($btnText, $btnFacebookBackgroundHighlight, $btnFacebookBackgroundHighlight);
+}

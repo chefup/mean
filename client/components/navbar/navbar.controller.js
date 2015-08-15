@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function($scope, $location, Auth, $window) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -11,6 +11,10 @@ angular.module('chefupApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+
+    $scope.loginOauth = function(provider) {
+      $window.location.href = '/auth/' + provider;
+    };
 
     $scope.logout = function() {
       Auth.logout();
