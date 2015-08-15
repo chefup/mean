@@ -60,6 +60,7 @@ UserSchema
       'name': this.name,
       'role': this.role,
       'avatar': this.avatar,
+      'caption': this.caption,
       'stripe': this.stripe_profile
     };
   });
