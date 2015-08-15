@@ -5,6 +5,10 @@
         type: 'ObjectId',
         ref: 'Dish'
       },
+      price: {
+        required: true,
+        type: Number
+      },
       privacy: {
         type: String,
         enum: {
@@ -25,7 +29,13 @@
     } else if (isNode) {
       var mongular = require('mongular-schema');
 
-      var schema = mongular.merge(sharedSchema, {}, {
+      var schema = mongular.merge(sharedSchema, {
+        price: {
+          set: function(num) {
+            return num * 100;
+          }
+        }
+      }, {
         toObject: {
           getters: true,
           virtuals: true

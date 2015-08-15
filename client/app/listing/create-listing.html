@@ -3,11 +3,13 @@
 <div class="container">
   <div class="row">
     <h2>New Pickup</h2>
-    <div class="col-md-10">
+    <div class="col-md-6">
       <form ng-submit="createListing.submit(listingForm)" name="listingForm" id="listingForm" sf-schema="createListing.schema" sf-form="createListing.form" sf-model="createListing.model">
       </form>
-      <dish-select></dish-select>
       <button class="btn btn-primary" ng-click="createListing.submit(listingForm)">Create Pickup</button>
+    </div>
+    <div class="col-md-4">
+      <dish-select selected="createListing.model.dish"></dish-select>
     </div>
     <div class="col-md-2">
       ads?

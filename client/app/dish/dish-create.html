@@ -5,8 +5,26 @@
 <div class="modal-body">
   <form ng-submit="createDish.submit(dishForm)" name="dishForm" id="dishForm" sf-schema="createDish.schema" sf-form="createDish.form" sf-model="createDish.model">
   </form>
+<!--   <form ng-submit="addIngredient.submit(ingredientForm)" name="ingredientForm" id="ingredientForm" sf-schema="addIngredient.schema" sf-form="addIngredient.form" sf-model="addIngredient.model">
+  </form> -->
+  <form ng-submit="addIngredient.submit(ingredientForm)" name="ingredientForm" id="ingredientForm">
+    <div class="form-group">
+      <label>Add Ingredient</label>
+      <div class="input-group">
+        <input ng-model="addIngredient.ingredient" type="text" name="ingredient" class="form-control input-lg" />
+        <div class="input-group-addon">
+          <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ul class="dishIngredients">
+    <li ng-repeat="ingredient in createDish.model.ingredients">
+        {{ingredient}} <i class="fa fa-remove" ng-click="removeIngredient(ingredient)"></i>
+    </li>
+  </ul>
 </div>
 <div class="modal-footer">
   <button class="btn btn-success" ng-click="createDish.submit(dishForm)">Create</button>
-  <button class="btn btn-warning" ng-click="createDish.submit(dishForm)">Cancel</button>
+  <button class="btn btn-warning" ng-click="$close()">Cancel</button>
 </div>
