@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chefupApp')
-  .controller('NavbarCtrl', function($rootScope, $scope, $location, Auth, $window, $http) {
+  .controller('NavbarCtrl', function($rootScope, $scope, $location, Auth, $window, $http, $state) {
     var $input = $(".location-lookup", $('#navbar-main'));
     $http.get('https://freegeoip.net/json/').then(function(response) {
       var val = "";
@@ -14,20 +14,43 @@ angular.module('chefupApp')
       if (response.data.country_name) {
         val += response.data.country_name;
       }
-      $input.val(response.data.city + ', ' + response.data.regionName + ', ' + response.data.country);
+      $input.val(val);
       $rootScope.geoIP = [response.data.latitude, response.data.longitude];
     });
 
     $scope.location = null;
+    $(window).on("keyup", function(e) {
+      if (e.keyCode === 13 && $state.current !== "main") {
+        if ($(e.target).attr('ng-change') === "changeSearch()") {
+          $state.go('main');
+          _.delay(function() {
+            $scope.changeSearch();
+          }, 500);
+        } else if ($(e.target).attr('ng-change') === "updateLocation()") {
+          $state.go('main');
+          _.delay(function() {
+            $scope.updateLocation();
+          }, 500);
+        }
+      }
+    });
     $scope.updateLocation = function() {
-      $rootScope.mainLocation = $scope.location;
-      $rootScope.$broadcast('updateLocation');
+      if ($state.current !== "main") {
+        return;
+      } else {
+        $rootScope.mainLocation = $scope.location;
+        $rootScope.$broadcast('updateLocation');
+      }
     };
     $scope.search = "";
     $scope.changeSearch = function() {
-      $rootScope.mainSearch = $scope.search;
-      if ($rootScope.updateSearch) {
-        $rootScope.updateSearch();
+      if ($state.current !== "main") {
+        return;
+      } else {
+        $rootScope.mainSearch = $scope.search;
+        if ($rootScope.updateSearch) {
+          $rootScope.updateSearch();
+        }
       }
     };
 
