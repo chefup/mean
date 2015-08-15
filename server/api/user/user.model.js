@@ -17,7 +17,7 @@ var UserSchema = new Schema({
   provider: String,
   facebook: {},
   dishes: [{
-    type: 'ObjectId',
+    type: Schema.ObjectId,
     ref: "Dish"
   }]
 });
