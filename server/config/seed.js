@@ -7,6 +7,8 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Dish = require('../api/dish/dish.model');
+var Pickup = require('../api/pickup/pickup.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -30,20 +32,31 @@ Thing.find({}).remove(function() {
   });
 });
 
+
 User.find({}).remove(function() {
   User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, function() {
-      console.log('finished populating users');
+    provider: 'facebook',
+    name: 'Open Graph Test User',
+    email: 'open_zqwrohc_user@tfbnw.net',
+    facebook: {
+      id: 153275765007258
     }
-  );
+  }, function(err, testUser) {
+    Pickup.find({}).remove(function() {
+      Dish.create({
+        name: 'Test Dish',
+        price: 50,
+        user: testUser
+      }, function(err, dish) {
+        Pickup.create({
+          user: testUser,
+          dish: dish
+        }, function() {
+          console.log('finished populating pickups');
+        });
+      })
+    });
+  });
 });
+
+Dish.find({}).remove();
