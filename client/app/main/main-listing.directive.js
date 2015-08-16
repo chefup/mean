@@ -19,7 +19,7 @@ angular.module('chefupApp')
           var prevpickups = $scope.pickups;
           $scope.pickups = $scope.allPickups;
           $scope.pickups = _.filter(_.filter($scope.allPickups, function(pickup) {
-            var query = new RegExp(search);
+            var query = new RegExp(search, 'i');
             if (!search || pickup.dish.name.match(query) || (pickup.dish.description && pickup.dish.description.match(query))) {
               return true;
             } else {
