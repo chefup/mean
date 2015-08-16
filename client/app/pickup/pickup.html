@@ -6,23 +6,23 @@
           <img class="col-md-12" ng-src="{{pickup.dish.images[0] || 'assets/images/pasta-placeholder.png'}}" />
           <div class="overlay">
             <span class="dish-name">{{pickup.dish.name}}</span>
-            <div class="avatar">
+            <div class="avatar" style="bottom: 130px; right: 25px;">
               <img ng-src="{{user.avatar}}" />
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <h5>Available Times</h5>
           <div ng-repeat="(day, availability) in pickup.availabilities" ng-if="availability.able">
             <strong style="width: 40px; display: inline-block;">{{day}}:</strong> <span style="color:green;">{{availability.start}}:00 - {{availability.end}}:00</span>
           </div>
         </div>
-        <div class="panel-body row clearfix">
-          <div class="col-md-8 col-md-offset-4" style="position: absolute; top: 15px;">
-            <div class="tags">
-               <span class="label label-default" ng-repeat="tag in pickup.tags">{{tag}}</span>
-            </div>
+        <div class="col-md-2">
+          <div class="tags" style="margin-top: 15px;">
+             <span class="label label-default" ng-repeat="tag in pickup.tags">{{tag}}</span>
           </div>
+        </div>
+        <div class="panel-body row clearfix">
           <div class="col-md-12" style="margin-top: 15px;">
             <div class="row">
               <div class="col-md-8">

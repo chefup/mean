@@ -5,7 +5,7 @@ angular.module('chefupApp')
     Auth.isLoggedInAsync(function(isLoggedIn) {
       $scope.isLoggedIn = isLoggedIn;
       $scope.pickup = Pickup.$find($stateParams.pickupId).$then(function() {
-        $scope.isChef = $scope.pickup.user == Auth.getCurrentUser()._id;
+        $scope.isChef = $scope.pickup.user._id == Auth.getCurrentUser()._id;
         if ($scope.isLoggedIn) {
           $scope.pickup.requests.$fetch().$then(function() {
             if (!$scope.isChef) {
