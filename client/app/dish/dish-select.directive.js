@@ -7,10 +7,10 @@ angular.module('chefupApp')
         restrict: 'E',
         templateUrl: 'app/dish/dish-select.html',
         scope: {
-          selected: '='
+          selectedDish: '='
         },
         link: function($scope, element, attrs) {
-          $scope.selected = null;
+          $scope.selectedDish = null;
           $scope.dishes = Dish.$search({
             userId: Auth.getCurrentUser()._id
           });
