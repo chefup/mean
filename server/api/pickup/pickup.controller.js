@@ -10,7 +10,7 @@ exports.index = function(req, res) {
   if (req.query.userId) {
     query.user = req.query.userId;
   }
-  Pickup.find(query).populate('dish').exec(function(err, pickups) {
+  Pickup.find(query).populate('dish').populate('user').exec(function(err, pickups) {
     if (err) {
       return handleError(res, err);
     }
@@ -21,7 +21,7 @@ exports.index = function(req, res) {
 
 // Get a single pickup
 exports.show = function(req, res) {
-  Pickup.findById(req.params.id).populate('dish').exec(function(err, pickup) {
+  Pickup.findById(req.params.id).populate('dish').populate('user').exec(function(err, pickup) {
     if (err) {
       return handleError(res, err);
     }
