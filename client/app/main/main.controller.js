@@ -28,9 +28,11 @@ angular.module('chefupApp')
     $scope.$on('mapInitialized', function(event, map) {
       resizeFunc();
       var changeMap = function() {
-        var LatLng = new google.maps.LatLng($rootScope.geoIP[0], $rootScope.geoIP[1]);
-        map.setCenter(LatLng);
-        $scope.map.setZoom(9);
+        if ($rootScope.geoIP) {
+          var LatLng = new google.maps.LatLng($rootScope.geoIP[0], $rootScope.geoIP[1]);
+          map.setCenter(LatLng);
+          $scope.map.setZoom(9);
+        }
       };
       $rootScope.mainMap = $scope.map;
       $scope.map.setOptions({
@@ -47,12 +49,7 @@ angular.module('chefupApp')
         });
       }
       var listener = function(e) {
-        // _.delay(function() {
         $rootScope.$broadcast('updateLocation');
-        // }, 100);
-        // if ($scope.map.removeEventListener) {
-        //   $scope.map.removeEventListener('tilesloaded', listener);
-        // }
       };
       $scope.map.addListener('tilesloaded', listener);
     });

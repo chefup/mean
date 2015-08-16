@@ -1,5 +1,3 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
 <div class="container createPickup">
   <div class="row">
     <div class="panel panel-success">
@@ -18,7 +16,7 @@
         <button class="btn btn-primary" ng-click="createPickup.submit(pickupForm)">Create Pickup</button>
       </div>
       <div class="col-md-4">
-        <dish-select selected="createPickup.model.dish"></dish-select>
+        <dish-select selected-dish="createPickup.model.dish"></dish-select>
         <h4>Availabilities</h4>
         <div class="row" ng-repeat="day in days">
           <div class="col-md-4">
