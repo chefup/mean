@@ -32,7 +32,6 @@ exports.show = function(req, res) {
       var avgRating = _.chain(reviews).values().map('dishRating').compact().reduce(function(a,m,i,p) {
         return a + m/p.length;
       }, 0).value();
-      console.log(avgRating);
       pickup.dish.rating = avgRating;
       res.json(pickup);
     });
