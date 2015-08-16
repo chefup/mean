@@ -4,6 +4,9 @@
     <img class="col-md-12" ng-src="{{item.dish.images[0] || 'assets/images/pasta-placeholder.png'}}" />
     <div class="overlay">
       <span class="dish-name">{{item.dish.name}}</span>
+      <div class="avatar">
+        <img ng-src="{{userAvatar}}" />
+      </div>
     </div>
   </div>
   <div class="panel-body col-md-7">
