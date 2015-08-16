@@ -32,11 +32,23 @@
 }
 
 .request-list-item .avatar img {
+  margin-top: -4px;
   width: 28px;
   height: 28px;
   float: left;
 }
+.request-list-item .fa.pull-right {
+  margin-top: 5px;
+}
 
 .status {
+  margin-top: 8px;
+}
+
+.rating-input:hover .fa-star {
+  color: #F1F12C;
+}
+
+.rating-row {
   margin-top: 8px;
 }

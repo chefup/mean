@@ -10,7 +10,8 @@
           'delivered': 'delivered',
           'cancelled': 'cancelled',
           'refunded': 'refunded',
-          'rejected': 'rejected'
+          'rejected': 'rejected',
+          'reviewed': 'reviewed'
         },
         default: 'enquiry'
       },

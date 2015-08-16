@@ -10,17 +10,35 @@
       </div>
     </div>
   </div>
-  <textarea autofocus ng-model="comment" class="form-control" placeholder="Ask a question to the Chef"></textarea>
-  <div class="pull-left status text-muted">
-    <span ng-show="request.status == 'payment_committed'">Current Status: Waiting for approval</span>
-    <span ng-show="request.status == 'accepted'">Current Status: Will be ready for pick-up on XX/XX/XX</span>
-    <span ng-show="request.status == 'delivered'">This transaction has been completed. Please rate your experience.</span>
-  </div>
-  <div class="text-right" style="margin-top: 5px">
+  <textarea autofocus ng-show="request.status != 'delivered'" ng-model="comment" class="form-control" placeholder="Ask a question to the Chef"></textarea>
+  <textarea autofocus ng-show="request.status == 'delivered'" ng-disabled="request.reviews.length" ng-model="review.content" class="form-control" placeholder="Post a public review of this user"></textarea>
+  <div class="pull-right text-right" ng-show="!request || request.status != 'reviewed'" style="margin-top: 5px">
     <a href="#" ng-show="!$parent.isChef && (!request || request.status == 'enquiry')" ng-click="$parent.commitToBuy()" class="btn btn-success">Commit to Pay</a>
     <a href="#" ng-show="$parent.isChef && request.status == 'payment_committed'" ng-click="commitToCook()" class="btn btn-success">Commit to Cook</a>
     <a href="#" ng-show="$parent.isChef && request.status == 'accepted'" ng-click="delivered()" class="btn btn-info">Delivered</a>
     <a href="#" ng-show="!$parent.isChef && request.status == 'payment_committed'" ng-click="cancel()" class="btn btn-danger">Cancel</a>
-    <a href="#" ng-click="submitComment()" class="btn btn-default">Send message</a>
+    <a href="#" ng-show="request.status != 'delivered'" ng-click="submitComment()" class="btn btn-default">Send message</a>
+    <a href="#" ng-show="request.status == 'delivered' && request.reviews.length == 0" ng-click="submitReview()" class="btn btn-default">Post review</a>
+  </div>
+  <div ng-show="request.status == 'delivered'" class="row rating-row">
+    <div class="col-md-4" ng-hide="$parent.ifChef">
+      <strong>Your meal:</strong>
+      <span ng-show="request.status == 'delivered'" class="rating rating-input">
+        <rating ng-model="review.dishRating" state-on="'fa fa-star'" state-off="'fa fa-star-o'"></rating>
+      </span>
+    </div>
+    <div class="col-md-4">
+      <strong ng-show="$parent.ifChef">The purchaser:</strong>
+      <strong ng-hide="$parent.ifChef">The chef:</strong>
+      <span ng-show="request.status == 'delivered'" class="rating rating-input">
+        <rating ng-model="review.userRating" state-on="'fa fa-star'" state-off="'fa fa-star-o'"></rating>
+      </span>
+    </div>
+  </div>
+  <div class="pull-left status text-muted">
+    <span ng-show="request.status == 'payment_committed'">Current Status: Waiting for approval</span>
+    <span ng-show="request.status == 'accepted'">Current Status: Will be ready for pick-up on XX/XX/XX</span>
+    <span ng-show="request.status == 'delivered' && request.reviews.length == 0">This transaction has been completed. Please review and rate your experience.</span>
+    <span ng-show="request.status == 'delivered' && request.reviews.length != 0">This transaction has been completed.</span>
   </div>
 </div>

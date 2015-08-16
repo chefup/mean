@@ -69,7 +69,7 @@ exports.index = function(req, res) {
 
 // Get a single request
 exports.show = function(req, res) {
-  Request.findById(req.params.requestId, function (err, request) {
+  Request.findById(req.params.requestId).populate('pickup').exec(function (err, request) {
     if(err) { return handleError(res, err); }
     if(!request) { return res.send(404); }
     return res.json(200, request);
