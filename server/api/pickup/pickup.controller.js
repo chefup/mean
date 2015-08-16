@@ -29,10 +29,9 @@ exports.show = function(req, res) {
       return res.send(404);
     }
     Review.find({ dish: pickup.dish._id }, function(err, reviews) {
-      var avgRating = _.chain(reviews).values().map('userRating').compact().reduce(function(a,m,i,p) {
+      var avgRating = _.chain(reviews).values().map('dishRating').compact().reduce(function(a,m,i,p) {
         return a + m/p.length;
       }, 0).value();
-      console.log(avgRating);
       pickup.dish.rating = avgRating;
       res.json(pickup);
     });

@@ -19,7 +19,7 @@ angular.module('chefupApp')
             }
           });
         }
-        $scope.user = User.$find($scope.pickup.user).$then(function() {
+        $scope.user = User.$find($scope.pickup.user._id).$then(function() {
           $scope.checkout = StripeCheckout.configure({
             key: $scope.user.stripe.stripe_publishable_key,
             email: Auth.getCurrentUser().email,
