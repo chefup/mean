@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var User = require('./user.model');
+var Review = require('../review/review.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -50,7 +51,14 @@ exports.show = function(req, res, next) {
   User.findById(userId, function(err, user) {
     if (err) return next(err);
     if (!user) return res.send(404);
-    res.json(user.profile);
+    Review.find({ user: this._id }, function(err, reviews) {
+      var profile = user.profile;
+      var avgRating = _.chain(reviews).values().map('userRating').compact().reduce(function(a,m,i,p) {
+        return a + m/p.length;
+      }, 0).value();
+      profile.rating = avgRating;
+      res.json(profile);
+    });
   });
 };
 

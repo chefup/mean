@@ -24,14 +24,14 @@
     <div class="col-md-4" ng-hide="$parent.ifChef">
       <strong>Your meal:</strong>
       <span ng-show="request.status == 'delivered'" class="rating rating-input">
-        <rating ng-model="review.dishRating" state-on="'fa fa-star'" state-off="'fa fa-star-o'"></rating>
+        <rating ng-model="review.dishRating" readonly="!allowReview" state-on="'fa fa-star'" state-off="'fa fa-star-o'"></rating>
       </span>
     </div>
     <div class="col-md-4">
       <strong ng-show="$parent.ifChef">The purchaser:</strong>
       <strong ng-hide="$parent.ifChef">The chef:</strong>
       <span ng-show="request.status == 'delivered'" class="rating rating-input">
-        <rating ng-model="review.userRating" state-on="'fa fa-star'" state-off="'fa fa-star-o'"></rating>
+        <rating ng-model="review.userRating" readonly="!allowReview" state-on="'fa fa-star'" state-off="'fa fa-star-o'"></rating>
       </span>
     </div>
   </div>

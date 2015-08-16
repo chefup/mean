@@ -40,12 +40,6 @@
         },
       });
 
-      schema
-        .virtual('rating')
-        .get(function() {
-          return 5;
-        });
-
       var relationship = require("mongoose-relationship");
       schema.plugin(relationship, {
         relationshipPathName: 'user'

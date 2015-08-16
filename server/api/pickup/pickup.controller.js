@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Pickup = require('./pickup.model');
+var Review = require('../review/review.model');
 
 // Get list of pickups
 exports.index = function(req, res) {
@@ -27,7 +28,14 @@ exports.show = function(req, res) {
     if (!pickup) {
       return res.send(404);
     }
-    return res.json(pickup);
+    Review.find({ dish: pickup.dish._id }, function(err, reviews) {
+      var avgRating = _.chain(reviews).values().map('userRating').compact().reduce(function(a,m,i,p) {
+        return a + m/p.length;
+      }, 0).value();
+      console.log(avgRating);
+      pickup.dish.rating = avgRating;
+      res.json(pickup);
+    });
   });
 };
 
