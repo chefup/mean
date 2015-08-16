@@ -11,19 +11,26 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+          <h5>Available Times</h5>
+          <div ng-repeat="(day, availability) in pickup.availabilities" ng-if="availability.able">
+            <strong style="width: 40px; display: inline-block;">{{day}}:</strong> <span style="color:green;">{{availability.start}}:00 - {{availability.end}}:00</span>
+          </div>
+        </div>
         <div class="panel-body row clearfix">
           <div class="col-md-8 col-md-offset-4" style="position: absolute; top: 15px;">
             <div class="tags">
                <span class="label label-default" ng-repeat="tag in pickup.tags">{{tag}}</span>
             </div>
-            <div class="pickup-buttons" ng-show="isLoggedIn && !requestOpen && !isChef">
-              <a href="#" ng-click="inquire()" class="btn btn-block btn-warning">Inquire</a>
-              <a href="#" ng-click="commitToBuy()" class="btn btn-block btn-info">Commit to Pay</a>
-            </div>
           </div>
           <div class="col-md-12" style="margin-top: 15px;">
             <div class="row">
               <div class="col-md-8">
+                <div class="pickup-buttons" ng-show="isLoggedIn && !requestOpen && !isChef">
+                  <a href="#" ng-click="inquire()" class="btn btn-block btn-warning">Inquire</a>
+                  <a href="#" ng-click="commitToBuy()" class="btn btn-block btn-info">Commit to Pay</a>
+                </div>
+                <h5 ng-show="pickup.dish.description.length">Description</h5>
                 <p>{{pickup.dish.description}}</p>
                 <h5 ng-show="pickup.dish.ingredients.length">Ingredients</h5>
                 <ul>
@@ -37,10 +44,6 @@
               <div class="col-md-4">
                 <h5>Location</h5>
                 <map></map>
-                <h5>Available Times</h5>
-                <div ng-repeat="(day, availability) in pickup.availabilities" ng-if="availability.able">
-                  <strong style="width: 40px; display: inline-block;">{{day}}:</strong> <span style="color:green;">{{availability.start}}:00 - {{availability.end}}:00</span>
-                </div>
               </div>
             </div>
           </div>

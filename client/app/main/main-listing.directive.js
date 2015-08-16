@@ -17,12 +17,10 @@ angular.module('chefupApp')
         $scope.updateSearch = function() {
           var search = $rootScope.mainSearch;
           var prevpickups = $scope.pickups;
-          if (search === '') {
-            $scope.pickups = $scope.allPickups;
-          }
+          $scope.pickups = $scope.allPickups;
           $scope.pickups = _.filter(_.filter($scope.allPickups, function(pickup) {
             var query = new RegExp(search);
-            if (pickup.dish.name.match(query) || (pickup.dish.description && pickup.dish.description.match(query))) {
+            if (!search || pickup.dish.name.match(query) || (pickup.dish.description && pickup.dish.description.match(query))) {
               return true;
             } else {
               var match = false;
@@ -40,7 +38,7 @@ angular.module('chefupApp')
             // Check that it's within the map viewport
             return $rootScope.mainMap.getBounds().contains(new google.maps.LatLng(pickup.lat, pickup.lon));
           });
-          if (_.isEqual($scope.pickups, prevpickups) && $scope.markers.length != 0) {
+          if (_.isEqual($scope.pickups, prevpickups) && $scope.markers.length != 0 && search !== '') {
             return;
           }
           _.each($scope.markers, function(marker) {
